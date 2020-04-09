@@ -8,8 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "@zeit/next-bundle-analyzer": "^0.1.2",
+    "axios": "^0.19.2",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^8.0.8",
     "next": "9.3.4",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   }
 }

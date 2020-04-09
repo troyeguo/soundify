@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="5" viewBox="0 0 16 5">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16" height="5" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="重复网格_4" data-name="重复网格 4" clip-path="url(#clip-path)">
+    <g transform="translate(-917 -161)">
+      <g id="组_570" data-name="组 570" transform="translate(888 505) rotate(-90)">
+        <circle id="椭圆_19" data-name="椭圆 19" cx="1.5" cy="1.5" r="1.5" transform="translate(340 29)" fill="#46495a"/>
+        <circle id="椭圆_20" data-name="椭圆 20" cx="1.5" cy="1.5" r="1.5" transform="translate(340 35)" fill="#46495a"/>
+        <circle id="椭圆_21" data-name="椭圆 21" cx="1.5" cy="1.5" r="1.5" transform="translate(340 41)" fill="#46495a"/>
+      </g>
+    </g>
+  </g>
+</svg>
