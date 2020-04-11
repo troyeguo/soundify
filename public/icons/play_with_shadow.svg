@@ -10,7 +10,7 @@
   </defs>
   <g id="组_606" data-name="组 606" transform="translate(-885 -98)">
     <g transform="matrix(1, 0, 0, 1, 885, 98)" filter="url(#椭圆_80)">
-      <circle id="椭圆_80-2" data-name="椭圆 80" cx="23.5" cy="23.5" r="23.5" transform="translate(9 6)" fill="#4b4fd3"/>
+      <circle id="椭圆_80-2" data-name="椭圆 80" cx="23.5" cy="23.5" r="23.5" transform="translate(9 6)" fill="rgb(0, 84, 148)"/>
     </g>
     <path id="多边形_10" data-name="多边形 10" d="M8.729,3.373a2,2,0,0,1,3.542,0l7.191,13.7A2,2,0,0,1,17.691,20H3.309a2,2,0,0,1-1.771-2.93Z" transform="translate(931 117) rotate(90)" fill="#fff"/>
   </g>

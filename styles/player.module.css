@@ -55,7 +55,7 @@
   width: 204px;
   height: 204px;
   background: rgba(255, 255, 255, 0.66);
-  border: 5px solid #4b4fd3;
+  border: 5px solid rgb(0, 84, 148);
   position: relative;
   bottom: 211px;
   left: 65px;
@@ -80,7 +80,7 @@
 .playerButton {
   width: 109px;
   height: 38px;
-  background: rgba(75, 79, 211, 1);
+  background: rgb(0, 84, 148);
   opacity: 1;
   border-radius: 25px;
   margin-left: 115px;

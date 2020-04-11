@@ -42,7 +42,7 @@
 .contentSelector {
   width: 100%;
   height: 4px;
-  background: rgba(75, 79, 211, 1);
+  background: rgb(0, 84, 148);
   opacity: 1;
 }
 .contentLine {

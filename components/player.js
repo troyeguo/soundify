@@ -1,12 +1,23 @@
 import { withRouter } from "next/router";
-
+import { useState } from "react";
 import songList from "../mock/songs";
 import styles from "../styles/player.module.css";
+import AddDialog from "./AddDialog";
 const Player = ({ children, router }) => {
+  const [showAddDialog, setShowAddDialog] = useState(false);
   return (
     <div className={styles.player}>
       <div className={styles.playerHeader}>
-        <img className={styles.add} src="/icons/add.svg" alt="" />
+        <img
+          className={styles.add}
+          src="/icons/add.svg"
+          alt=""
+          onClick={() => {
+            setShowAddDialog(!showAddDialog);
+          }}
+        />
+        {showAddDialog ? <AddDialog /> : null}
+
         <div>
           <img className={styles.avatar} src="/images/avatar.jpeg" alt="" />
           <span className={styles.nickname}>Troye Guo</span>

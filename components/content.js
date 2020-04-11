@@ -7,6 +7,7 @@ const menuList = ["Home", "Playlist", "Album", "Artist", "Search"];
 const Content = ({ children, router }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentContent, setCurrentContent] = useState(0);
+  const [currentSong, setCurrentSong] = useState();
 
   return (
     <div>
@@ -36,7 +37,16 @@ const Content = ({ children, router }) => {
           />
           {songList().map((item, index) => {
             return (
-              <li key={item.id} className={styles.contentList}>
+              <li
+                key={item.id}
+                className={styles.contentList}
+                onMouseOver={() => {
+                  setCurrentSong(index);
+                }}
+                onMouseLeave={() => {
+                  setCurrentSong();
+                }}
+              >
                 <div>{index + 1}</div>
                 <img
                   src="/icons/favorite.svg"
@@ -44,15 +54,23 @@ const Content = ({ children, router }) => {
                   style={{ width: "18px" }}
                 />
                 <div>{item.song}</div>
-                <img
-                  src="/icons/play.svg"
-                  alt=""
-                  style={{ opacity: 0.61, width: 30 }}
-                />
+                {currentSong === index ? (
+                  <>
+                    <img
+                      src="/icons/play.svg"
+                      alt=""
+                      style={{ opacity: 0.61, width: 30 }}
+                    />
+                    <img
+                      src="/icons/more_dot.svg"
+                      alt=""
+                      style={{ width: 20 }}
+                    />
+                  </>
+                ) : null}
 
                 <div>{item.artist}</div>
                 <div>{item.album}</div>
-                <img src="/icons/more_dot.svg" alt="" style={{ width: 20 }} />
               </li>
             );
           })}

@@ -3,15 +3,14 @@ import PropTypes from "prop-types";
 import { get } from "lodash/object";
 import Link from "next/link";
 import Router from "next/router";
-import withAuthUser from "../utils/pageWrappers/withAuthUser";
-import withAuthUserInfo from "../utils/pageWrappers/withAuthUserInfo";
-import logout from "../utils/auth/logout";
+import withAuthUser from "../utils/loginUtil/pageWrappers/withAuthUser";
+import withAuthUserInfo from "../utils/loginUtil/pageWrappers/withAuthUserInfo";
+import logout from "../utils/loginUtil/auth/logout";
 import styles from "../styles/index.module.css";
 import FirebaseAuth from "../components/FirebaseAuth";
 const Index = (props) => {
   const { AuthUserInfo, data } = props;
   const AuthUser = get(AuthUserInfo, "AuthUser", null);
-  const { favoriteFood } = data;
 
   return (
     <div>
