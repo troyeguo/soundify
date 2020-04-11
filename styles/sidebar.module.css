@@ -1,0 +1,48 @@
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 169px;
+  height: 100%;
+  background-color: #4b4fd3;
+  color: white;
+}
+.logo {
+  width: 100%;
+  padding: 33px 0px 45px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.logoImg {
+  width: 42px;
+  height: 42px;
+}
+.logoText {
+  font-size: 20px;
+  margin-left: 10px;
+  position: relative;
+  bottom: 10px;
+}
+.menuList {
+  height: 62px;
+  position: relative;
+  cursor: pointer;
+  padding-left: 40px;
+}
+.menuText {
+  font-size: 17px;
+  margin-left: 10px;
+  position: relative;
+  bottom: 3px;
+}
+.menuSelector {
+  width: 150px;
+  height: 44px;
+  background: rgba(255, 255, 255, 1);
+  opacity: 0.15;
+  border-radius: 12px;
+  position: absolute;
+  right: 10px;
+  bottom: 28px;
+}

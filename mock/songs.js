@@ -7,7 +7,7 @@ export default () => {
       duration: 240000,
       album: "Lover",
       addTime: "2020-4-8",
-      cover: "/album.jpg",
+      cover: "/images/album.jpg",
     },
     {
       id: 2,
@@ -16,7 +16,7 @@ export default () => {
       duration: 240000,
       album: "Lover",
       addTime: "2020-4-8",
-      cover: "/album.jpg",
+      cover: "/images/album.jpg",
     },
     {
       id: 3,
@@ -25,7 +25,7 @@ export default () => {
       duration: 240000,
       album: "Lover",
       addTime: "2020-4-8",
-      cover: "/album.jpg",
+      cover: "/images/album.jpg",
     },
     {
       id: 4,
@@ -34,7 +34,7 @@ export default () => {
       duration: 240000,
       album: "Lover",
       addTime: "2020-4-8",
-      cover: "/album.jpg",
+      cover: "/images/album.jpg",
     },
   ];
 };

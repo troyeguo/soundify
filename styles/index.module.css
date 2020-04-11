@@ -1,0 +1,89 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  color: white;
+}
+.logoImg {
+  width: 42px;
+  height: 42px;
+}
+.logoText {
+  font-size: 20px;
+  margin-left: 10px;
+  position: relative;
+  bottom: 10px;
+}
+.enterTitle {
+  font-size: 25px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  line-height: 80px;
+  color: rgba(32, 34, 99, 1);
+  opacity: 1;
+  text-align: center;
+  margin-top: 58px;
+}
+.enterContainer {
+  width: 320px;
+  height: 100%;
+  float: right;
+}
+.mdl-button--raised {
+  box-shadow: 0 0 0 !important;
+  border-radius: 5px;
+}
+.welcomeTitle {
+  font-size: 30px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  color: rgba(32, 34, 99, 1);
+  opacity: 1;
+  text-align: center;
+  margin-top: 95px;
+}
+.welcomeAvatar {
+  width: 112px;
+  height: 112px;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  opacity: 1;
+  margin: 46px 105px 0px;
+}
+.welcomeName {
+  font-size: 16px;
+  font-family: Segoe UI;
+  font-weight: 600;
+  color: rgba(32, 34, 99, 1);
+  opacity: 1;
+  text-align: center;
+}
+.welcomeButton {
+  width: 138px;
+  height: 40px;
+  background: rgba(75, 79, 211, 1);
+  opacity: 1;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 15px;
+  font-family: Segoe UI;
+  font-weight: 600;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  margin: 37px 92px 0px;
+  cursor: pointer;
+}
+.signOutText {
+  font-size: 15px;
+  font-family: Segoe UI;
+  font-weight: 600;
+  color: rgba(61, 63, 134, 1);
+  opacity: 1;
+  text-align: center;
+  margin-top: 7px;
+  cursor: pointer;
+}
