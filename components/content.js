@@ -8,7 +8,7 @@ const Content = ({ children, router }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentContent, setCurrentContent] = useState(0);
   const [currentSong, setCurrentSong] = useState();
-
+  // console.log("true");
   return (
     <div>
       <div className={styles.content}>

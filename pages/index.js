@@ -18,21 +18,25 @@ const Index = ({ userRepos, starred, router }) => {
   });
 
   if (!user || !user.id) {
+    // console.log("fase");
     return (
-      <div className="root">
+      <div
+        className="root"
+        style={{ position: "absolute", left: 200, top: 100 }}
+      >
         <p>亲，您还没有登录哦</p>
         <a href={publicRuntimeConfig.OAUTH_URL}>点击登录</a>
       </div>
     );
   }
 
-  const { avatar_url, login, name, bio, email } = user;
+  // const { avatar_url, login, name, bio, email } = user;
 
   return <Content />;
 };
 
 Index.getInitialProps = cache(async ({ ctx, reduxStore }) => {
-  //判断用户是否登出
+  // 判断用户是否登出;
   const { user } = reduxStore.getState();
   if (!user || !user.id) {
     return {};

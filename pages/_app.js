@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import withRedux from "../lib/withRedux";
 import PageLoading from "../components/LoadingPage";
 import Router from "next/router";
-import '../styles/reset.css'
+import "../styles/reset.css";
 class Myapp extends App {
   // App组件的getInitialProps比较特殊
   // 能拿到一些额外的参数
@@ -56,13 +56,13 @@ class Myapp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
     return (
-        <Provider store={reduxStore}>
-          <Layout>
-            {this.state.loading ? <PageLoading /> : null}
-            {/* 把pageProps解构后传递给组件 */}
-            <Component {...pageProps} />
-          </Layout>
-        </Provider>
+      <Provider store={reduxStore}>
+        <Layout>
+          {this.state.loading ? <PageLoading /> : null}
+          {/* 把pageProps解构后传递给组件 */}
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     );
   }
 }
