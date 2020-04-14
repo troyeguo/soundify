@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import Router, { withRouter } from "next/router";
 import * as actionTypes from "../redux/action";
 import $axios from "../$axios";
 import { connect } from "react-redux";
 import { SpotifyApiContext, SpotifyApiAxiosContext } from "react-spotify-api";
 import DiscoverBody from "../components/Discover";
-import Tracks from "../components/Tracks";
-import Layout from "../components/Layout";
 
 class Discover extends Component {
   constructor(props) {
@@ -62,4 +59,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(Discover));
+)(Discover);

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "next/router";
 import Link from "next/link";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import styles from "../styles/sidebar.module.css";
 const menuList = ["Home", "Discover", "Playlist", "Album", "Artist"];
 class Sidebar extends Component {

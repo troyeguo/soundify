@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "next/router";
-import { useState } from "react";
-import songList from "../mock/songs";
+import Link from "next/link";
 import styles from "../styles/player.module.css";
 import { connect } from "react-redux";
-import AddDialog from "./AddDialog";
 import * as actionTypes from "../redux/action";
 import axios from "axios";
+import { AudioAnimation, AudioStop } from "./audioAnimation";
 class Player extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +34,7 @@ class Player extends Component {
       console.log("onready");
       window.Spotify = Spotify;
     };
-    console.log(window.Spotify, "etata");
+    // console.log(window.Spotify, "etata");
     this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
   }
   checkForPlayer = () => {
@@ -71,7 +70,7 @@ class Player extends Component {
 
     this.player.on("player_state_changed", (state) => {
       if (state) {
-        console.log("player state changed", state);
+        // console.log("player state changed", state);
         let { duration, position } = state;
         // duration = 100%
         // position = ?%
@@ -159,12 +158,8 @@ class Player extends Component {
       .then((res) => {
         console.log("status", res);
         if (res.status === 204) {
-          axios
-            .get("https://api.spotify.com/v1/me/player", {
-              headers: {
-                Authorization: `Bearer ${this.state.token}`,
-              },
-            })
+          $axios
+            .get("https://api.spotify.com/v1/me/player")
             .then(() => {
               // Transferred playback successfully, get current timestamp
               this.checkChangePosition();
@@ -201,11 +196,14 @@ class Player extends Component {
     let seconds = ((mil % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
+  handleLogout = () => {
+    localStorage.setItem("react-spotify-access-token", null);
+  };
   render() {
     if (!this.state.playingInfo) {
       return null;
     }
-    console.log(this.state.playingInfo);
+    // console.log(this.state.playingInfo);
 
     return (
       <div className={styles.player}>
@@ -213,7 +211,16 @@ class Player extends Component {
           <div>
             <img className={styles.avatar} src="/images/avatar.jpeg" alt="" />
             <span className={styles.nickname}>Troye Guo</span>
-            <span className={styles.triangle}></span>
+            <Link href="/">
+              <span
+                className={styles.logOut}
+                onClick={() => {
+                  this.handleLogout();
+                }}
+              >
+                Log Out
+              </span>
+            </Link>
           </div>
         </div>
         <div className={styles.playerCoverContainer}>
@@ -266,34 +273,9 @@ class Player extends Component {
         </div>
 
         <div className={styles.playerNext}>
-          <div className={styles.nextText}>Next</div>
-          <div className={styles.nextListContainer}>
-            <ul className={styles.nextList}>
-              {songList().map((item) => {
-                return (
-                  <li key={item.id} className={styles.nextListItem}>
-                    <div className={styles.nextSong}>{item.song}</div>
-                    <p
-                      className={styles.nextArtistName}
-                      style={{
-                        fontSize: "14px",
-                        lineHeight: "20px",
-                        color: "rgba(61, 63, 134, 0.61)",
-                      }}
-                    >
-                      {item.artist}
-                    </p>
-                    <img
-                      src="/icons/play.svg"
-                      alt=""
-                      className={styles.nextButton}
-                    />
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          {this.state.playing ? <AudioAnimation /> : <AudioStop />}
         </div>
+        <div className={styles.line}></div>
       </div>
     );
   }

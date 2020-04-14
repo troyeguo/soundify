@@ -1,4 +1,3 @@
-import axios from "axios";
 import $axios from "../../$axios";
 export const SET_USER = "SET_USER";
 export const GET_RECENTLY_PLAYED = "GET_RECENTLY_PLAYED";
@@ -20,9 +19,6 @@ export const playSong = (uris, deviceId) => {
       $axios({
         url: `https://api.spotify.com/v1/me/player/play`,
         method: "PUT",
-        // headers: {
-        //   Authorization: `Bearer ${getState().current_user.access_token}`,
-        // },
         data: uris,
       })
         .then(() => {
@@ -83,7 +79,7 @@ const setPauseSong = () => {
 };
 
 export const fetchRecentlyPlayed = (options) => {
-  console.log(options);
+  // console.log(options);
   return (dispatch) => {
     if (true) {
       dispatch(getRecentlyPlayed());
@@ -95,7 +91,7 @@ export const fetchRecentlyPlayed = (options) => {
         },
       })
         .then((res) => {
-          console.log(res.data.items);
+          // console.log(res.data.items);
           dispatch(setRecentlyPlayed(res.data.items));
         })
         .catch((err) => {

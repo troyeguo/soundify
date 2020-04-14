@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Router, { withRouter } from "next/router";
 import * as actionTypes from "../redux/action";
 import $axios from "../$axios";
 import { connect } from "react-redux";
@@ -43,22 +42,12 @@ class Playlist extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {
-    user: state.current_user,
-    backgroundImage: state.backgroundImage,
-    recently_played: state.recently_played,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setUser: (user) => dispatch({ type: actionTypes.SET_USER, user }),
-    fetchRecentlyPlayed: (options) =>
-      dispatch(actionTypes.fetchRecentlyPlayed(options)),
   };
 };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(Playlist));
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);

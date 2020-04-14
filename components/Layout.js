@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import Router, { withRouter } from "next/router";
+import { withRouter } from "next/router";
 import Sidebar from "./Sidebar";
 import Player from "./Player";
 import * as actionTypes from "../redux/action";
-import $axios from "../$axios";
 import { connect } from "react-redux";
-import { SpotifyApiContext, SpotifyApiAxiosContext } from "react-spotify-api";
-const menuList = ["Home", "Playlist", "Album", "Artist", "Search"];
 
 class layout extends Component {
   constructor(props) {
@@ -17,7 +14,6 @@ class layout extends Component {
     this.props.fetchRecentlyPlayed({ limit: 12 });
   }
   render() {
-    console.log(this.props.recently_played, "recently_played");
     return (
       <div className="layout">
         <Sidebar />
@@ -28,11 +24,7 @@ class layout extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {
-    user: state.current_user,
-    backgroundImage: state.backgroundImage,
-    recently_played: state.recently_played,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {

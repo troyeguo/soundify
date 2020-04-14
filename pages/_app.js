@@ -5,7 +5,6 @@ import withRedux from "../lib/redux";
 import Layout from "../components/Layout";
 import "../styles/reset.css";
 import "../styles/global.css";
-import { SpotifyApiContext, SpotifyApiAxiosContext } from "react-spotify-api";
 class Myapp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;

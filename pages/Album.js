@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Router, { withRouter } from "next/router";
+import { withRouter } from "next/router";
 import * as actionTypes from "../redux/action";
 import $axios from "../$axios";
 import { connect } from "react-redux";

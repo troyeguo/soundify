@@ -206,11 +206,7 @@ class Discover extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {
-    user: state.current_user,
-    currentlyPlaying: state.currently_playing,
-    isPlaying: state.isPlaying,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {

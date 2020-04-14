@@ -22,26 +22,26 @@
   opacity: 1;
   margin-left: 35px;
 }
-.triangle {
-  width: 0;
-  height: 0;
-  border: 5px solid transparent;
-  border-top-color: rgba(61, 63, 134, 1);
-  position: relative;
-  top: 0px;
-  left: 10px;
+.logOut {
+  font-size: 15px;
+  color: rgba(61, 63, 134, 1);
   margin-right: 50px;
+  font-weight: bold;
+  position: relative;
+  bottom: 12px;
+  left: 20px;
 }
 .nickname {
   font-size: 14px;
   line-height: 80px;
-  color: rgba(61, 63, 134, 1);
+  color: rgb(19, 20, 44);
   margin-left: 12px;
   position: relative;
   bottom: 12px;
 }
 .playerCoverContainer {
   height: 210px;
+  margin-top: 30px;
 }
 .playerCoverAnimation {
   width: 194px;
@@ -151,8 +151,11 @@
 }
 
 .playerNext {
-  margin-top: 10px;
-  height: 190px;
+  margin-top: 30px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .nextText {
   text-align: center;
@@ -202,4 +205,13 @@
   color: rgba(61, 63, 134, 1);
   opacity: 0.59;
   font-weight: 500;
+}
+.line {
+  align-items: center;
+  width: 200px;
+  height: 2px;
+  background-color: rgba(75, 75, 75, 0.2);
+  position: relative;
+  left: 70px;
+  bottom: 70px;
 }

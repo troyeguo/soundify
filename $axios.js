@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import * as actionTypes from "./redux/action";
+import { connect } from "react-redux";
 // dotenv.config();
 // console.log(process.env.NODE_ENV, "REACT_APP_BASE_URL");
 const $axios = axios.create({
@@ -22,6 +23,55 @@ $axios.interceptors.request.use(
   },
   function (error) {
     // 对请求错误做些什么
+    if (err || err.response.status === 401) {
+      // Check if refresh token exists
+      const refreshToken = localStorage.getItem("react-spotify-refresh-token");
+      if (refreshToken) {
+        // Send refresh token to server to acquire a new access token
+        axios
+          .post("http://localhost:3000/refresh", {
+            data: JSON.stringify({
+              refresh_token: refreshToken,
+            }),
+          })
+          .then((res) => {
+            console.log("Refresh token response -", res.data);
+            axios
+              .get("https://api.spotify.com/v1/me", {
+                headers: {
+                  Authorization: `Bearer ${res.data.access_token}`,
+                },
+              })
+              .then(({ data }) => {
+                localStorage.setItem(
+                  "react-spotify-access-token",
+                  res.data.access_token
+                );
+
+                let newUser = {
+                  access_token: res.data.access_token,
+                  displayName: data.display_name,
+                  email: data.email,
+                  display_name: data.display_name,
+                  type: data.type,
+                  country: data.country,
+                  product: data.product,
+                  avatar: data.images[0].url,
+                };
+                localStorage.setItem("newUser".JSON.stringify(newUser));
+              });
+          })
+          .catch((e) => {
+            console.log("Refresh token error -", e);
+          })
+          .finally(() => {
+            this.setState({ loading: false });
+          });
+      } else {
+        // Refresh token doesn't exist, the user is shown a 'login with Spotify button'
+        this.setState({ loading: false });
+      }
+    }
     message.error(error);
     return Promise.reject(error);
   }
@@ -36,8 +86,7 @@ $axios.interceptors.response.use(
     if (error.response) {
       console.log(error.response, "error");
       const originalRequest = error.config;
-      if (error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
+      if (error.response.status === 401) {
         console.log("Error happened");
         console.log(error);
         // return window.location.reload();

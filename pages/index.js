@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import Router, { withRouter } from "next/router";
 import * as actionTypes from "../redux/action";
-import $axios from "../$axios";
 import axios from "axios";
 import { connect } from "react-redux";
-import { SpotifyApiContext, SpotifyApiAxiosContext } from "react-spotify-api";
-import Layout from "../components/Layout";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +50,7 @@ class Index extends Component {
       params.access_token !== "undefined"
     ) {
       localStorage.setItem("react-spotify-access-token", params.access_token);
-      $axios
+      axios
         .get("https://api.spotify.com/v1/me", {
           headers: {
             Authorization: `Bearer ${params.access_token}`,
@@ -78,7 +75,6 @@ class Index extends Component {
           };
           console.log(newUser, "newUser");
           this.logInUserAndGetInfo(newUser);
-          this.props.fetchRecentlyPlayed({ limit: 12 });
         })
         .catch((err) => {
           console.log(err, "fgjxfjxf");
@@ -114,13 +110,13 @@ class Index extends Component {
                         access_token: res.data.access_token,
                         displayName: data.display_name,
                         email: data.email,
-                        id: data.id,
+                        display_name: data.display_name,
                         type: data.type,
                         country: data.country,
                         product: data.product,
+                        avatar: data.images[0].url,
                       };
                       this.logInUserAndGetInfo(newUser);
-                      this.props.fetchRecentlyPlayed({ limit: 12 });
                     });
                 })
                 .catch((e) => {
@@ -142,7 +138,7 @@ class Index extends Component {
   }
   logInUserAndGetInfo = (newUser) => {
     console.log("LOG IN", newUser);
-    console.log(this.props);
+    // console.log(this.props);
     localStorage.setItem("newUser", JSON.stringify(newUser));
     this.props.setUser(newUser); // set user in redux state
     console.log("test");
@@ -185,8 +181,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setUser: (user) => dispatch({ type: actionTypes.SET_USER, user }),
-    fetchRecentlyPlayed: (options) =>
-      dispatch(actionTypes.fetchRecentlyPlayed(options)),
   };
 };
 
