@@ -1,0 +1,138 @@
+.contentSelector {
+  width: 100%;
+  height: 4px;
+  background: rgb(0, 84, 148);
+  opacity: 1;
+}
+.coverContainer {
+  width: 100%;
+  height: 158px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-bottom: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
+}
+.contentCoverList {
+  min-width: 7000px;
+  height: 137px;
+  position: relative;
+  right: 0px;
+}
+.contentCoverContainer {
+  float: left;
+  margin: 20px 50px 0px 0px;
+}
+.contentTitle {
+  font-size: 16px;
+  font-family: Segoe UI;
+  font-weight: 600;
+  color: rgba(70, 73, 90, 1);
+  opacity: 0.68;
+  text-align: center;
+  width: 137px;
+  height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contentCover {
+  background: rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  border-radius: 3px;
+  width: 107px;
+  height: 107px;
+  margin-bottom: 5px;
+}
+.nextIcon {
+  position: absolute;
+  left: 670px;
+  top: 110px;
+}
+.prevIcon {
+  position: absolute;
+  left: 620px;
+  top: 110px;
+  transform: rotate(180deg);
+}
+.contentSelector {
+  width: 100%;
+  height: 4px;
+  background: rgb(0, 84, 148);
+  opacity: 1;
+}
+.contentLine {
+  width: 735px;
+  height: 0px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  opacity: 0.09;
+  float: left;
+}
+.playButtonShadow {
+  position: absolute;
+  right: -20px;
+  top: 68px;
+}
+.contentListContainer {
+  float: left;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+  top: 12px;
+}
+.songListContainer {
+  width: 100%;
+  height: 100%;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
+  overflow-y: scroll;
+}
+.contentList {
+  font-size: 16px;
+  font-family: Segoe UI;
+  font-weight: 600;
+  line-height: 40px;
+  color: rgba(61, 63, 134, 1);
+  opacity: 1;
+  margin: 7px;
+  width: 100%;
+  display: flex;
+}
+.indexName {
+  margin-left: 0px;
+}
+.favoriteIcon {
+  width: 18px;
+  margin: 12px 5px;
+}
+.listPlayIcon {
+  width: 27px;
+  margin: 7px 7px 7px 0px;
+}
+.trackName {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trackArtist {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trackAlbum {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.moreDot {
+  width: 18px;
+  float: left;
+}
+.contentList div {
+  float: left;
+  margin-right: 20px;
+}

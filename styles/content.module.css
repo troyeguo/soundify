@@ -1,6 +1,6 @@
 .content {
   position: absolute;
-  left: 179px;
+  left: 195px;
   top: 0;
   width: calc(100% - 554px);
   height: 100%;
@@ -61,6 +61,10 @@
   float: left;
   width: 100%;
   position: relative;
+}
+.songListContainer {
+  height: 320px;
+  overflow-y: scroll;
 }
 .contentList {
   font-size: 16px;

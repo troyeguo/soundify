@@ -7,7 +7,8 @@
 }
 .playerHeader {
   display: flex;
-  justify-content: center;
+  height: 60px;
+  justify-content: flex-end;
 }
 .add {
   height: 31px;
@@ -29,6 +30,7 @@
   position: relative;
   top: 0px;
   left: 10px;
+  margin-right: 50px;
 }
 .nickname {
   font-size: 14px;
@@ -41,15 +43,65 @@
 .playerCoverContainer {
   height: 210px;
 }
-.playerCover {
-  width: 204px;
-  height: 204px;
+.playerCoverAnimation {
+  width: 194px;
+  height: 194px;
   background: rgba(0, 0, 0, 0);
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
   opacity: 1;
   border-radius: 102px;
   position: relative;
   left: 70px;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 3s;
+  -moz-transition-property: -moz-transform;
+  -moz-transition-duration: 3s;
+  -webkit-animation: rotate 9s linear infinite;
+  -moz-animation: rotate 9s linear infinite;
+  -o-animation: rotate 9s linear infinite;
+  animation: rotate 9s linear infinite;
+}
+.playerCover {
+  width: 194px;
+  height: 194px;
+  background: rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
+  opacity: 1;
+  border-radius: 102px;
+  position: relative;
+  left: 70px;
+}
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-o-keyframes rotate {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 .playerControl {
   width: 204px;
@@ -60,42 +112,47 @@
   bottom: 211px;
   left: 65px;
   border-radius: 106px;
-  display: none;
+  /* display: none; */
 }
 .songName {
+  width: 80%;
   font-size: 18px;
   font-family: Roboto;
   font-weight: bold;
-  line-height: 30px;
+  line-height: 20px;
+  margin-left: 40px;
   color: rgba(70, 73, 90, 1);
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .artistName {
   font-size: 15px;
   line-height: 17px;
+  font-weight: bold;
   color: rgba(70, 73, 90, 1);
-  opacity: 0.6;
+  opacity: 0.4;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.playerButton {
-  width: 109px;
+.playerPanel {
+  width: 40%;
   height: 38px;
-  background: rgb(0, 84, 148);
   opacity: 1;
   border-radius: 25px;
-  margin-left: 115px;
+  margin-left: 100px;
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
-.playerButtonText {
-  color: white;
-  margin-left: 5px;
-}
+
 .playerNext {
   margin-top: 10px;
-  height: 150px;
+  height: 190px;
 }
 .nextText {
   text-align: center;
@@ -121,27 +178,28 @@
 .nextListItem {
   position: relative;
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 40px;
 }
 .nextButton {
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
   opacity: 0.63;
   position: absolute;
   left: 240px;
-  bottom: 5px;
+  bottom: 8px;
 }
 .nextSong {
   font-family: Segoe UI;
   font-weight: 600;
-  line-height: 20px;
+  line-height: 16px;
   color: rgba(61, 63, 134, 1);
   opacity: 1;
 }
 .nextArtistName {
   font-size: 14px;
   font-family: Segoe UI;
-  line-height: 16px;
+  line-height: 13px;
   color: rgba(61, 63, 134, 1);
-  opacity: 0.39;
+  opacity: 0.59;
+  font-weight: 500;
 }

@@ -1,76 +1,206 @@
-const Koa = require("koa");
-const Router = require("koa-router");
 const next = require("next");
-const session = require("koa-session");
-const Redis = require("ioredis");
-const koaBody = require("koa-body");
+var express = require("express"); // Express web server framework
+var request = require("request"); // "Request" library
+var querystring = require("querystring");
+var cookieParser = require("cookie-parser");
+var dotenv = require("dotenv");
+var cors = require("cors");
+dotenv.config();
 const atob = require("atob");
-const auth = require("./server/auth");
-const api = require("./server/api");
-const RedisSessionStore = require("./server/sessionStore");
 
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
-// 实例化一个redisClient
-const redisClient = new Redis({
-  port: 6379, // Redis port
-  host: "127.0.0.1",
-  // host: "47.95.225.57", // Redis host
-  // family: 4, // 4 (IPv4) or 6 (IPv6)
-  // password: "123456",
-  // db: 0
-});
+console.log(dev, "dev");
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
+var mode = process.env.NODE_ENV === "dev" ? "dev" : "prod"; // "dev" or "prod"
+console.log(mode);
+var modes = {
+  prod: {
+    baseURL: process.env.PROD_BASE_URL,
+    redirect_uri: process.env.PROD_REDIRECT_URI,
+  },
+  dev: {
+    baseURL: process.env.DEV_BASE_URL,
+    redirect_uri: process.env.DEV_REDIRECT_URI,
+  },
+};
+
+var client_id = process.env.CLIENT_ID; // Your client id
+var client_secret = process.env.CLIENT_SECRET; // Your secret
+
+/**
+ * Generates a random string containing numbers and letters
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
+var generateRandomString = function (length) {
+  var text = "";
+  var possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
+
+var stateKey = "spotify_auth_state";
 const PORT = 3000;
 // 给node全局增加atob方法
 global.atob = atob;
-console.log("hello1");
+
 // 等到pages目录编译完成后启动服务响应请求
-app.prepare().then(() => {
-  const server = new Koa();
-  const router = new Router();
+nextApp.prepare().then(() => {
+  var app = express();
 
-  // 用于给session加密
-  server.keys = ["ssh develop github app"];
-  // 解析post请求的内容
-  server.use(koaBody());
+  app
+    .use(express.static(__dirname + "/public"))
+    .use(cors())
+    .use(cookieParser());
 
-  const sessionConfig = {
-    // 设置到浏览器的cookie里的key
-    key: "sid",
-    // 将自定义存储逻辑传给koa-session
-    store: new RedisSessionStore(redisClient),
-  };
-  server.use(session(sessionConfig, server));
+  app.get("/login", function (req, res) {
+    var state = generateRandomString(16);
+    res.cookie(stateKey, state);
 
-  // 处理github Oauth登录
-  console.log("hello");
-  auth(server);
-  // 处理github请求代理
-  api(server);
+    // your application requests authorization
+    var scope =
+      "user-read-private user-read-email playlist-modify-private playlist-read-private playlist-read-collaborative playlist-modify-public user-follow-modify user-follow-read app-remote-control streaming user-read-currently-playing user-modify-playback-state user-read-playback-state user-library-modify user-library-read user-read-recently-played user-top-read";
+    res.redirect(
+      "https://accounts.spotify.com/authorize?" +
+        querystring.stringify({
+          response_type: "code",
+          client_id: client_id,
+          scope: scope,
+          redirect_uri: modes[mode].redirect_uri,
+          state: state,
+        })
+    );
+  });
 
-  router.get("/api/user/info", async (ctx) => {
-    const { userInfo } = ctx.session;
-    if (userInfo) {
-      ctx.body = userInfo;
-      // 设置头部 返回json
-      ctx.set("Content-Type", "application/json");
+  app.post("/refresh", function (req, res) {
+    req.on("data", function (data) {
+      var token = JSON.parse(data).refresh_token;
+      var authOptions = {
+        url: "https://accounts.spotify.com/api/token",
+        form: {
+          refresh_token: token,
+          grant_type: "refresh_token",
+        },
+        headers: {
+          Authorization:
+            "Basic " +
+            new Buffer(client_id + ":" + client_secret).toString("base64"),
+        },
+        json: true,
+      };
+      request.post(authOptions, function (err, response, body) {
+        res.json(response.body);
+      });
+    });
+  });
+
+  app.get("/callback", function (req, res) {
+    // your application requests refresh and access tokens
+    // after checking the state parameter
+    console.log(req.query);
+    var code = req.query.code || null;
+    var state = req.query.state || null;
+    var storedState = req.cookies ? req.cookies[stateKey] : null;
+
+    if (state === null || state !== storedState) {
+      res.redirect(
+        "/#" +
+          querystring.stringify({
+            error: "state_mismatch",
+          })
+      );
     } else {
-      ctx.status = 401;
-      ctx.body = "Need Login";
+      res.clearCookie(stateKey);
+      var authOptions = {
+        url: "https://accounts.spotify.com/api/token",
+        form: {
+          code: code,
+          redirect_uri: modes[mode].redirect_uri,
+          grant_type: "authorization_code",
+        },
+        headers: {
+          Authorization:
+            "Basic " +
+            new Buffer(client_id + ":" + client_secret).toString("base64"),
+        },
+        json: true,
+      };
+
+      request.post(authOptions, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          var access_token = body.access_token,
+            refresh_token = body.refresh_token;
+
+          var options = {
+            url: "https://api.spotify.com/v1/me",
+            headers: { Authorization: "Bearer " + access_token },
+            json: true,
+          };
+
+          // use the access token to access the Spotify Web API
+          request.get(options, function (error, response, body) {
+            console.log(body);
+          });
+
+          // we can also pass the token to the browser to make requests from there
+          res.redirect(
+            modes[mode].baseURL +
+              "/#" +
+              querystring.stringify({
+                access_token: access_token,
+                refresh_token: refresh_token,
+              })
+          );
+        } else {
+          res.redirect(
+            modes[mode].baseURL +
+              "/#" +
+              querystring.stringify({
+                error: "invalid_token",
+              })
+          );
+        }
+      });
     }
   });
 
-  server.use(router.routes());
+  app.get("/refresh_token", function (req, res) {
+    // requesting access token from refresh token
+    var refresh_token = req.query.refresh_token;
+    var authOptions = {
+      url: "https://accounts.spotify.com/api/token",
+      headers: {
+        Authorization:
+          "Basic " +
+          new Buffer(client_id + ":" + client_secret).toString("base64"),
+      },
+      form: {
+        grant_type: "refresh_token",
+        refresh_token: refresh_token,
+      },
+      json: true,
+    };
 
-  server.use(async (ctx) => {
-    // req里获取session
-    ctx.req.session = ctx.session;
-    await handle(ctx.req, ctx.res);
-    ctx.respond = false;
+    request.post(authOptions, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        var access_token = body.access_token;
+        res.send({
+          access_token: access_token,
+        });
+      }
+    });
   });
 
-  server.listen(PORT, () => {
+  app.all("*", (req, res) => {
+    return handle(req, res);
+  });
+
+  app.listen(PORT, () => {
     console.log(`koa server listening on ${PORT}`);
   });
 });

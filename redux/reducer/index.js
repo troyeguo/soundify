@@ -1,47 +1,72 @@
-import { LOGOUT } from "../action";
-import { combineReducers } from "redux";
-import axios from "axios";
+import * as actionTypes from "../action";
 
-export const userinitialState = {};
+export const initialState = {
+  current_user: null,
+  recently_played: null,
+  play_now: {
+    type: null,
+    uri: null,
+  },
+  currently_playing: null,
+  isPlaying: false,
+  backgroundImage: "linear-gradient(rgb(58, 91, 95), rgb(6, 9, 10) 85%)",
+};
 
-export const userReducers = (state = userinitialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGOUT:
-      return {};
+    case actionTypes.SET_USER:
+      return {
+        ...state,
+        isLoggedIn: true,
+        current_user: {
+          ...state.current_user,
+          ...action.user,
+        },
+      };
+    case actionTypes.SET_RECENTLY_PLAYED:
+      return {
+        ...state,
+        recently_played: action.recently_played,
+      };
+    case actionTypes.SET_PLAY_NOW:
+      return {
+        ...state,
+        play_now: {
+          type: action.uri_type,
+          uri: action.uri,
+        },
+      };
+    case actionTypes.RESET_PLAY_NOW:
+      return {
+        ...state,
+        play_now: {
+          type: null,
+          uri: null,
+        },
+      };
+    case actionTypes.SET_CURRENTLY_PLAYING:
+      return {
+        ...state,
+        currently_playing: action.song,
+      };
+    case actionTypes.SET_IS_PLAYING:
+      return {
+        ...state,
+        isPlaying: action.isPlaying,
+      };
+    case actionTypes.SET_BACKGROUND_IMAGE:
+      return {
+        ...state,
+        backgroundImage: action.backgroundImage,
+      };
+    case actionTypes.PLAY_SONG_START:
+      return {
+        ...state,
+        play_now: null,
+      };
     default:
       return state;
   }
 };
 
-export function logout() {
-  return (dispatch) => {
-    axios
-      .post("/logout")
-      .then((resp) => {
-        if (resp.status === 200) {
-          dispatch({
-            type: LOGOUT,
-          });
-          message.success("注销成功");
-        } else {
-          console.log("logout failed", resp);
-        }
-      })
-      .catch((e) => {
-        console.log("logout failed", e);
-      });
-  };
-}
-
-export const allReducers = combineReducers({
-  user: userReducers,
-});
-
-// export default {
-//     allReducers,
-//     userinitialState
-// }
-
-// export default combineReducers({
-//     user: userReducers,
-// });
+export default reducer;

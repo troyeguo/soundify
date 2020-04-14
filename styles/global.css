@@ -1,0 +1,23 @@
+.content-header {
+  width: 158px;
+  height: 53px;
+  font-size: 45px;
+  font-family: Helvetica;
+  font-weight: bold;
+  line-height: 53px;
+  color: rgba(69, 69, 69, 1);
+  opacity: 1;
+}
+.content {
+  position: absolute;
+  left: 195px;
+  top: 0;
+  width: calc(100% - 554px);
+  height: 100%;
+  margin: 20px;
+}
+.check-content {
+  width: 300px;
+  height: 300px;
+  overflow-y: scroll;
+}

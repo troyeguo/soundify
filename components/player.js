@@ -1,99 +1,324 @@
+import React, { Component } from "react";
 import { withRouter } from "next/router";
 import { useState } from "react";
 import songList from "../mock/songs";
 import styles from "../styles/player.module.css";
+import { connect } from "react-redux";
 import AddDialog from "./AddDialog";
-const Player = ({ children, router }) => {
-  const [showAddDialog, setShowAddDialog] = useState(false);
-  return (
-    <div className={styles.player}>
-      <div className={styles.playerHeader}>
-        <img
-          className={styles.add}
-          src="/icons/add.svg"
-          alt=""
-          onClick={() => {
-            setShowAddDialog(!showAddDialog);
-          }}
-        />
-        {showAddDialog ? <AddDialog /> : null}
+import * as actionTypes from "../redux/action";
+import axios from "axios";
+class Player extends Component {
+  constructor(props) {
+    super(props);
 
-        <div>
-          <img className={styles.avatar} src="/images/avatar.jpeg" alt="" />
-          <span className={styles.nickname}>Troye Guo</span>
-          <span className={styles.triangle}></span>
-        </div>
-      </div>
-      <div className={styles.playerCoverContainer}>
-        <img className={styles.playerCover} src="/images/album.jpg" alt="" />
-        <div className={styles.playerControl}>
-          <img
-            src="/icons/favorite.svg"
-            alt=""
-            style={{ position: "absolute", left: 90, top: 149 }}
-          />
-          <img
-            src="/icons/add_to_playlist.svg"
-            alt=""
-            style={{ position: "absolute", left: 90, top: 34 }}
-          />
-          <img
-            src="/icons/next.svg"
-            alt=""
-            style={{ position: "absolute", left: 149, top: 91 }}
-          />
-          <img
-            src="/icons/prev.svg"
-            alt=""
-            style={{ position: "absolute", left: 34, top: 91 }}
-          />
-          <img
-            src="/icons/play.svg"
-            alt=""
-            style={{ position: "absolute", left: 76, top: 76 }}
-          />
-        </div>
-      </div>
-      <div className={styles.musicInfo}>
-        <div className={styles.songName}>You Need to Calm Down</div>
-        <div className={styles.artistName}>Taylor Swift</div>
-      </div>
-      <div className={styles.playerButton}>
-        <img src="/icons/shuffle.svg" alt="" />
-        <span className={styles.playerButtonText}>Shuffle</span>
-      </div>
+    this.state = {
+      deviceId: null,
+      playingInfo: null,
+      playing: false,
+      positionSliderValue: 50,
+      volumeSliderValue: 50,
+      positionStamp: "00:00",
+      durationStamp: "00:00",
+      player_init_error: false,
+    };
 
-      <div className={styles.playerNext}>
-        <div className={styles.nextText}>Next</div>
-        <div className={styles.nextListContainer}>
-          <ul className={styles.nextList}>
-            {songList().map((item) => {
-              return (
-                <li key={item.id} className={styles.nextListItem}>
-                  <div className={styles.nextSong}>{item.song}</div>
-                  <p
-                    className={styles.nextArtistName}
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: "20px",
-                      color: "rgba(61, 63, 134, 0.61)",
-                    }}
-                  >
-                    {item.artist}
-                  </p>
-                  <img
-                    src="/icons/play.svg"
-                    alt=""
-                    className={styles.nextButton}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+    this.player = null;
+    this.playerCheckInterval = null;
+    this.positionCheckInterval = null;
+  }
+  componentDidMount() {
+    this.setState({
+      token: localStorage.getItem("react-spotify-access-token"),
+    });
+    // console.log(Spotify, "etata");
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      console.log("onready");
+      window.Spotify = Spotify;
+    };
+    console.log(window.Spotify, "etata");
+    this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
+  }
+  checkForPlayer = () => {
+    if (window.Spotify) {
+      console.log("checkForPlayer");
+      clearInterval(this.playerCheckInterval);
+      this.player = new window.Spotify.Player({
+        name: "Soundify",
+        getOAuthToken: (cb) => {
+          cb(this.state.token);
+        },
+      });
+    }
+
+    if (this.player) {
+      this.createEventHandlers();
+
+      this.player.connect();
+    }
+  };
+  createEventHandlers = () => {
+    this.player.on("initialization_error", (e) => {
+      console.error("Initialization error ", e);
+      this.setState({ player_init_error: true });
+    });
+    this.player.on("authentication_error", (e) =>
+      console.error("Authentication error ", e)
+    );
+    this.player.on("account_error", (e) => console.error("Account error ", e));
+    this.player.on("playback_error", (e) =>
+      console.error("Playback error ", e)
+    );
+
+    this.player.on("player_state_changed", (state) => {
+      if (state) {
+        console.log("player state changed", state);
+        let { duration, position } = state;
+        // duration = 100%
+        // position = ?%
+        let val = (position * 100) / duration;
+        this.setState({
+          playingInfo: state,
+          playing: !state.paused,
+          positionSliderValue: val,
+        });
+
+        // Music started playing, start the position interval
+        if (!this.props.isPlaying && !state.paused) {
+          this.positionCheckInterval = setInterval(() => {
+            this.checkChangePosition();
+          }, 1000);
+        }
+
+        // Music stopped playing, clear the position interval
+        if (this.props.isPlaying && state.paused) {
+          clearInterval(this.positionCheckInterval);
+        }
+
+        if (this.props.isPlaying === state.paused) {
+          this.props.setIsPlaying(!state.paused);
+        }
+
+        if (
+          !this.props.currentlyPlaying ||
+          this.props.currentlyPlaying !== state.track_window.current_track.name
+        ) {
+          let { current_track } = state.track_window;
+          this.props.setCurrentlyPlaying(current_track.name);
+        }
+      }
+    });
+
+    this.player.on("ready", (data) => {
+      let { device_id } = data;
+      console.log("PLAYER CONNECTED ", device_id);
+      // await this.setState({ deviceId: device_id });
+      this.setState({ deviceId: device_id }, () => {
+        this.transferPlaybackHere();
+      });
+      this.player.getVolume().then((vol) => {
+        let volume = vol * 100;
+        this.setState({ volumeSliderValue: volume });
+      });
+    });
+  };
+  checkChangePosition = () => {
+    this.player.getCurrentState().then((state) => {
+      if (state) {
+        let { duration, position } = state;
+        // duration = 100%
+        // position = ?%
+        let val = (position * 100) / duration;
+        if (val !== this.state.positionSliderValue) {
+          this.setState({
+            positionSliderValue: val,
+          });
+        }
+
+        let positionStamp = this.milisToMinutesAndSeconds(state.position);
+        let durationStamp = this.milisToMinutesAndSeconds(state.duration);
+        this.setState({ positionStamp, durationStamp });
+      }
+    });
+  };
+  transferPlaybackHere = () => {
+    // ONLY FOR PREMIUM USERS - transfer the playback automatically to the web app.
+    // for normal users they have to go in the spotify app/website and change the device manually
+    // user type is stored in redux state => this.props.user.type
+    const { deviceId } = this.state;
+    fetch("https://api.spotify.com/v1/me/player", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        device_ids: [deviceId],
+        play: false,
+      }),
+    })
+      .then((res) => {
+        console.log("status", res);
+        if (res.status === 204) {
+          axios
+            .get("https://api.spotify.com/v1/me/player", {
+              headers: {
+                Authorization: `Bearer ${this.state.token}`,
+              },
+            })
+            .then(() => {
+              // Transferred playback successfully, get current timestamp
+              this.checkChangePosition();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((e) => console.error(e));
+
+    // console.log('Hello', this.props);
+    // if (this.props.user.product === 'premium') {
+    // } else {
+    //   console.log(
+    //     'Cannot transfer playback automatically because you are not a premium user.'
+    //   );
+    // }
+  };
+
+  onPrevClick = () => {
+    this.player.previousTrack();
+  };
+
+  onPlayClick = () => {
+    this.player.togglePlay();
+  };
+
+  onNextClick = () => {
+    this.player.nextTrack();
+  };
+  milisToMinutesAndSeconds = (mil) => {
+    let minutes = Math.floor(mil / 60000);
+    let seconds = ((mil % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+  render() {
+    if (!this.state.playingInfo) {
+      return null;
+    }
+    console.log(this.state.playingInfo);
+
+    return (
+      <div className={styles.player}>
+        <div className={styles.playerHeader}>
+          <div>
+            <img className={styles.avatar} src="/images/avatar.jpeg" alt="" />
+            <span className={styles.nickname}>Troye Guo</span>
+            <span className={styles.triangle}></span>
+          </div>
+        </div>
+        <div className={styles.playerCoverContainer}>
+          {this.state.playing ? (
+            <img
+              className={styles.playerCoverAnimation}
+              src={
+                this.state.playingInfo.track_window.current_track.album
+                  .images[0].url
+              }
+              alt=""
+            />
+          ) : (
+            <img
+              className={styles.playerCover}
+              src={
+                this.state.playingInfo.track_window.current_track.album
+                  .images[0].url
+              }
+              alt=""
+            />
+          )}
+        </div>
+        <div className={styles.musicInfo}>
+          <div className={styles.songName}>
+            {this.state.playingInfo.track_window.current_track.name}
+          </div>
+          <div className={styles.artistName}>
+            {this.state.playingInfo.track_window.current_track.artists[0].name}
+          </div>
+        </div>
+        <div className={styles.playerPanel}>
+          <img src="/icons/prev.svg" alt="" onClick={this.onPrevClick} />
+          {this.state.playing ? (
+            <img
+              src="/icons/playing.svg"
+              alt=""
+              style={{ width: "45px" }}
+              onClick={this.onPlayClick}
+            />
+          ) : (
+            <img
+              src="/icons/play.svg"
+              alt=""
+              style={{ width: "45px" }}
+              onClick={this.onPlayClick}
+            />
+          )}
+          <img src="/icons/next.svg" alt="" onClick={this.onNextClick} />
+        </div>
+
+        <div className={styles.playerNext}>
+          <div className={styles.nextText}>Next</div>
+          <div className={styles.nextListContainer}>
+            <ul className={styles.nextList}>
+              {songList().map((item) => {
+                return (
+                  <li key={item.id} className={styles.nextListItem}>
+                    <div className={styles.nextSong}>{item.song}</div>
+                    <p
+                      className={styles.nextArtistName}
+                      style={{
+                        fontSize: "14px",
+                        lineHeight: "20px",
+                        color: "rgba(61, 63, 134, 0.61)",
+                      }}
+                    >
+                      {item.artist}
+                    </p>
+                    <img
+                      src="/icons/play.svg"
+                      alt=""
+                      className={styles.nextButton}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    recently_played: state.recently_played,
+    user: state.current_user,
+    playNow: state.play_now,
+    currentlyPlaying: state.currently_playing,
+    isPlaying: state.isPlaying,
+  };
 };
 
-export default withRouter(Player);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => dispatch({ type: actionTypes.SET_USER, user }),
+    fetchRecentlyPlayed: (options) =>
+      dispatch(actionTypes.fetchRecentlyPlayed(options)),
+    resetPlayNow: () => dispatch({ type: actionTypes.RESET_PLAY_NOW }),
+    setCurrentlyPlaying: (song) =>
+      dispatch({ type: actionTypes.SET_CURRENTLY_PLAYING, song }),
+    setIsPlaying: (isPlaying) =>
+      dispatch({ type: actionTypes.SET_IS_PLAYING, isPlaying }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Player));

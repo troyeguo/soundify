@@ -1,6 +1,6 @@
 // 处理github返回的auth code
 const axios = require("axios");
-const config = require("../config");
+const config = require("../.env");
 const {
   client_id,
   client_secret,
