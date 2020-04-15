@@ -21,6 +21,7 @@
 .contentCoverContainer {
   float: left;
   margin: 20px 50px 0px 0px;
+  cursor: pointer;
 }
 .contentTitle {
   font-size: 16px;
@@ -34,6 +35,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 .contentCover {
   background: rgba(0, 0, 0, 0);
@@ -43,17 +45,20 @@
   width: 107px;
   height: 107px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 .nextIcon {
   position: absolute;
   left: 670px;
   top: 110px;
+  cursor: pointer;
 }
 .prevIcon {
   position: absolute;
   left: 620px;
   top: 110px;
   transform: rotate(180deg);
+  cursor: pointer;
 }
 .contentSelector {
   width: 100%;

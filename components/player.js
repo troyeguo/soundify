@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "next/router";
-import Link from "next/link";
 import styles from "../styles/player.module.css";
 import { connect } from "react-redux";
 import * as actionTypes from "../redux/action";
-import axios from "axios";
+import $axios from "../$axios";
+import LoadingPage from "./LoadingPage";
 import { AudioAnimation, AudioStop } from "./audioAnimation";
 class Player extends Component {
   constructor(props) {
@@ -19,16 +19,24 @@ class Player extends Component {
       positionStamp: "00:00",
       durationStamp: "00:00",
       player_init_error: false,
+      user: null,
     };
 
     this.player = null;
     this.playerCheckInterval = null;
     this.positionCheckInterval = null;
   }
+
   componentDidMount() {
     this.setState({
       token: localStorage.getItem("react-spotify-access-token"),
     });
+    let newUser = localStorage.getItem("newUser");
+    console.log(newUser, "newUser");
+    if (newUser) {
+      this.setState({ user: JSON.parse(newUser) });
+    }
+
     // console.log(Spotify, "etata");
     window.onSpotifyWebPlaybackSDKReady = () => {
       console.log("onready");
@@ -196,12 +204,25 @@ class Player extends Component {
     let seconds = ((mil % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
-  handleLogout = () => {
-    localStorage.setItem("react-spotify-access-token", null);
-  };
+
   render() {
-    if (!this.state.playingInfo) {
-      return null;
+    console.log(this.state.playingInfo, this.state.user, "this.state.user");
+    if (!this.state.playingInfo || !this.state.user) {
+      return (
+        <div className={styles.player}>
+          <div className={styles.loadingContainer}>
+            <div
+              style={{ position: "relative", left: "70px", bottom: "130px" }}
+            >
+              <LoadingPage />
+            </div>
+
+            <div className={styles.loadingText}>
+              Connecting to Spotify Player...
+            </div>
+          </div>
+        </div>
+      );
     }
     // console.log(this.state.playingInfo);
 
@@ -209,18 +230,14 @@ class Player extends Component {
       <div className={styles.player}>
         <div className={styles.playerHeader}>
           <div>
-            <img className={styles.avatar} src="/images/avatar.jpeg" alt="" />
-            <span className={styles.nickname}>Troye Guo</span>
-            <Link href="/">
-              <span
-                className={styles.logOut}
-                onClick={() => {
-                  this.handleLogout();
-                }}
-              >
-                Log Out
-              </span>
-            </Link>
+            <img
+              className={styles.avatar}
+              src={this.state.user.avatar}
+              alt=""
+            />
+            <span className={styles.nickname}>
+              {this.state.user.displayName}
+            </span>
           </div>
         </div>
         <div className={styles.playerCoverContainer}>

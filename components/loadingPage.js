@@ -18,8 +18,8 @@ export default () => (
     <style jsx>{`
       .loader {
         position: relative;
-        margin: 0 auto;
-        width: 100px;
+        margin: auto auto;
+        width: 80px;
       }
       .loader:before {
         content: "";

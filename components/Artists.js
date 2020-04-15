@@ -94,25 +94,24 @@ class Artists extends Component {
                 )
               }
             </UserArtists>
-            <img
-              src="/icons/more.svg"
-              alt=""
-              className={styles.nextIcon}
-              onClick={() => {
-                this.handleNext();
-              }}
-            />
-            <img
-              src="/icons/more.svg"
-              alt=""
-              className={styles.prevIcon}
-              onClick={() => {
-                this.handlePrev();
-              }}
-            />
           </div>
         </div>
-
+        <img
+          src="/icons/more.svg"
+          alt=""
+          className={styles.nextIcon}
+          onClick={() => {
+            this.handleNext();
+          }}
+        />
+        <img
+          src="/icons/more.svg"
+          alt=""
+          className={styles.prevIcon}
+          onClick={() => {
+            this.handlePrev();
+          }}
+        />
         <UserArtists>
           {(artists, loading, error) =>
             artists && (

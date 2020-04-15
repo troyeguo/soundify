@@ -99,24 +99,23 @@ class PlaylistComp extends Component {
               }
             </UserPlaylists>
           </div>
-          <img
-            src="/icons/more.svg"
-            alt=""
-            className={styles.nextIcon}
-            onClick={() => {
-              this.handleNext();
-            }}
-          />
-          <img
-            src="/icons/more.svg"
-            alt=""
-            className={styles.prevIcon}
-            onClick={() => {
-              this.handlePrev();
-            }}
-          />
         </div>
-
+        <img
+          src="/icons/more.svg"
+          alt=""
+          className={styles.nextIcon}
+          onClick={() => {
+            this.handleNext();
+          }}
+        />
+        <img
+          src="/icons/more.svg"
+          alt=""
+          className={styles.prevIcon}
+          onClick={() => {
+            this.handlePrev();
+          }}
+        />
         <UserPlaylists>
           {(playlists, loading, error) =>
             playlists ? (

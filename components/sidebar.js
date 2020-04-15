@@ -5,12 +5,19 @@ import styles from "../styles/sidebar.module.css";
 const menuList = ["Home", "Discover", "Playlist", "Album", "Artist"];
 class Sidebar extends Component {
   state = { currentIndex: 0 };
+  componentDidMount() {
+    console.log(this.props.router.pathname, "this.props.router.pathname");
+    this.setState({
+      currentIndex: menuList.indexOf(this.props.router.pathname.substring(1)),
+    });
+  }
   handleClick = (index) => {
     this.setState({ currentIndex: index });
   };
+
   render() {
     return (
-      <div>
+      <>
         <div className={styles.sidebar}>
           <div className={styles.logo}>
             <Link href="/">
@@ -42,7 +49,7 @@ class Sidebar extends Component {
             })}
           </ul>
         </div>
-      </div>
+      </>
     );
   }
 }

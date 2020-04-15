@@ -78,8 +78,10 @@ nextApp.prepare().then(() => {
   });
 
   app.post("/refresh", function (req, res) {
+    console.log(req, "req");
     req.on("data", function (data) {
       var token = JSON.parse(data).refresh_token;
+      console.log(token, "server refresh");
       var authOptions = {
         url: "https://accounts.spotify.com/api/token",
         form: {
@@ -94,6 +96,7 @@ nextApp.prepare().then(() => {
         json: true,
       };
       request.post(authOptions, function (err, response, body) {
+        console.log(err, response, body, "err, response, body");
         res.json(response.body);
       });
     });

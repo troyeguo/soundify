@@ -8,7 +8,6 @@ class CustomDocument extends Document {
       <Html>
         <Head>
           <script src="https://sdk.scdn.co/spotify-player.js"></script>
-          <script>{}</script>
         </Head>
         <body>
           <Main />

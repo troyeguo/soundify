@@ -3,6 +3,7 @@ import Router, { withRouter } from "next/router";
 import * as actionTypes from "../redux/action";
 import axios from "axios";
 import { connect } from "react-redux";
+import Login from "../components/Login";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -10,16 +11,12 @@ class Index extends Component {
     this.token = null;
   }
   componentDidMount() {
-    let newUser = localStorage.getItem("newUser");
-    if (newUser) {
-      this.props.setUser(JSON.parse(newUser));
-    }
     this.setState(
       {
         token: localStorage.getItem("react-spotify-access-token"),
       },
       () => {
-        console.log(this.state.token, "token");
+        // console.log(this.state.token, "token");
         if (
           this.state.token !== undefined &&
           this.state.token !== "undefined" &&
@@ -68,10 +65,10 @@ class Index extends Component {
             access_token: params.access_token,
             displayName: data.display_name,
             email: data.email,
-            id: data.id,
             type: data.type,
             country: data.country,
             product: data.product,
+            avatar: data.images[0].url,
           };
           console.log(newUser, "newUser");
           this.logInUserAndGetInfo(newUser);
@@ -107,10 +104,9 @@ class Index extends Component {
                       );
 
                       let newUser = {
-                        access_token: res.data.access_token,
+                        access_token: params.access_token,
                         displayName: data.display_name,
                         email: data.email,
-                        display_name: data.display_name,
                         type: data.type,
                         country: data.country,
                         product: data.product,
@@ -159,16 +155,7 @@ class Index extends Component {
   render() {
     // console.log(this.props, "user");
 
-    return (
-      <div className="layout">
-        <a
-          href="http://localhost:3000/login"
-          style={{ position: "absolute", left: "300px", top: "200px" }}
-        >
-          点我登录
-        </a>
-      </div>
-    );
+    return <Login />;
   }
 }
 const mapStateToProps = (state) => {

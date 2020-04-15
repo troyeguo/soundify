@@ -96,24 +96,23 @@ class Album extends Component {
               }
             </UserAlbums>
           </div>
-          <img
-            src="/icons/more.svg"
-            alt=""
-            className={styles.nextIcon}
-            onClick={() => {
-              this.handleNext();
-            }}
-          />
-          <img
-            src="/icons/more.svg"
-            alt=""
-            className={styles.prevIcon}
-            onClick={() => {
-              this.handlePrev();
-            }}
-          />
         </div>
-
+        <img
+          src="/icons/more.svg"
+          alt=""
+          className={styles.nextIcon}
+          onClick={() => {
+            this.handleNext();
+          }}
+        />
+        <img
+          src="/icons/more.svg"
+          alt=""
+          className={styles.prevIcon}
+          onClick={() => {
+            this.handlePrev();
+          }}
+        />
         <UserAlbums>
           {(albums, loading, error) =>
             albums ? (
