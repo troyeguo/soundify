@@ -2,6 +2,7 @@ const next = require("next");
 var express = require("express"); // Express web server framework
 var request = require("request"); // "Request" library
 var querystring = require("querystring");
+const url = require("url");
 var cookieParser = require("cookie-parser");
 var dotenv = require("dotenv");
 var cors = require("cors");
@@ -200,7 +201,8 @@ nextApp.prepare().then(() => {
   });
 
   app.all("*", (req, res) => {
-    return handle(req, res);
+    const parsedUrl = url.parse(req.url, true);
+    handle(req, res, parsedUrl);
   });
 
   app.listen(PORT, () => {
