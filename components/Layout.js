@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "next/router";
 import Sidebar from "./sidebar";
 import Player from "./player";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index";
 import { connect } from "react-redux";
 
 class layout extends Component {

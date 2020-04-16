@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "next/router";
 import styles from "../styles/player.module.css";
 import { connect } from "react-redux";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index/index";
 import $axios from "../$axios";
 import LoadingPage from "./LoadingPage";
-import { AudioAnimation, AudioStop } from "./audioAnimation";
+import { AudioAnimation, AudioStop } from "./AudioAnimation";
 class Player extends Component {
   constructor(props) {
     super(props);

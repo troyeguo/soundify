@@ -3,7 +3,7 @@ import styles from "../styles/discover.module.css";
 import { Playlist } from "react-spotify-api";
 import { UserPlaylists } from "react-spotify-api";
 import { connect } from "react-redux";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index";
 class PlaylistComp extends Component {
   constructor(props) {
     super(props);

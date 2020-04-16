@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "../styles/discover.module.css";
 import { UserAlbums, AlbumTracks } from "react-spotify-api";
 import { connect } from "react-redux";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index";
 class Album extends Component {
   constructor(props) {
     super(props);

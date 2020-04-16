@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "../styles/home.module.css";
 import { UserTracks } from "react-spotify-api";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index";
 import { connect } from "react-redux";
 class Home extends Component {
   constructor(props) {
