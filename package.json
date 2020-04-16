@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev node server.js",
+    "dev": "cross-env NODE_ENV=dev node server.js -p $PORT",
     "build": "cross-env NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "cross-env NODE_ENV=production node server.js -p $PORT",
     "prestart": "cross-env NODE_ENV=production next build",
     "export": "next export"
   },
