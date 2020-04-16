@@ -1,0 +1,1 @@
+{"ast":null,"code":"import React from 'react';\nconst SpotifyApiContext = React.createContext();\nexport const SpotifyApiAxiosContext = React.createContext();\nexport default SpotifyApiContext;","map":null,"metadata":{},"sourceType":"module"}
