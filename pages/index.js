@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Router, { withRouter } from "next/router";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index";
 import axios from "axios";
 import { connect } from "react-redux";
 import Login from "../components/Login";
@@ -11,6 +11,13 @@ class Index extends Component {
     this.token = null;
   }
   componentDidMount() {
+    this.setState({
+      token: localStorage.getItem("react-spotify-access-token"),
+    });
+    let newUser = localStorage.getItem("newUser");
+    if (newUser) {
+      this.props.setUser(JSON.parse(newUser));
+    }
     this.setState(
       {
         token: localStorage.getItem("react-spotify-access-token"),

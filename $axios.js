@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as actionTypes from "./redux/action";
+import * as actionTypes from "./redux/action/index";
 import { connect } from "react-redux";
 // dotenv.config();
 // console.log(process.env.NODE_ENV, "REACT_APP_BASE_URL");

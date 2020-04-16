@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as actionTypes from "../redux/action";
+import * as actionTypes from "../redux/action/index";
 import $axios from "../$axios";
 import { connect } from "react-redux";
 import { SpotifyApiContext, SpotifyApiAxiosContext } from "react-spotify-api";
@@ -56,7 +56,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Discover);
+export default connect(mapStateToProps, mapDispatchToProps)(Discover);
