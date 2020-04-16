@@ -1,1 +1,0 @@
-{"ast":null,"code":"export var ADD = \"ADD\";\nexport var UPDATE_USERNAME = \"UPDATE_USERNAME\";\nexport var LOGOUT = \"LOGOUT\";","map":null,"metadata":{},"sourceType":"module"}
