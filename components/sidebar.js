@@ -6,9 +6,13 @@ const menuList = ["Home", "Discover", "Playlist", "Album", "Artist"];
 class Sidebar extends Component {
   state = { currentIndex: 0 };
   componentDidMount() {
-    console.log(this.props.router.pathname, "this.props.router.pathname");
+    let route = this.props.router.pathname;
+    // console.log(this.props.router.pathname, "this.props.router.pathname");
+    if (route === "/") {
+      route = "/Home";
+    }
     this.setState({
-      currentIndex: menuList.indexOf(this.props.router.pathname.substring(1)),
+      currentIndex: menuList.indexOf(route.substring(1)),
     });
   }
   handleClick = (index) => {

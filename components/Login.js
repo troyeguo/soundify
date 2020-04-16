@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "../styles/login.module.css";
+
 const displayText = [
   {
     title: "Stream your music with Soundify",
@@ -25,6 +26,56 @@ class Login extends Component {
   handleClick = (index) => {
     this.setState({ currentIndex: index });
   };
+  componentDidMount() {
+    let isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
+    let doc = document;
+    if (isFirefox)
+      doc.addEventListener("DOMMouseScroll", this.mouseFirefox, false);
+    else {
+      doc.addEventListener("mousewheel", this.mouseChrome, false);
+      // doc.addEventListener("mousewheel", recordCfi, false);
+    }
+  }
+  mouseFirefox = (event) => {
+    event.preventDefault();
+
+    if (event.detail < 0) {
+      if (this.state.currentIndex > 0) {
+        this.setState({ currentIndex: this.state.currentIndex - 1 });
+
+        return false;
+      }
+    }
+
+    if (event.detail > 0) {
+      if (this.state.currentIndex < 2) {
+        this.setState({ currentIndex: this.state.currentIndex + 1 });
+
+        return false;
+      }
+    }
+  };
+
+  mouseChrome = (event) => {
+    event.preventDefault();
+    // console.log("wheel moving");
+
+    if (event.wheelDelta > 0) {
+      if (this.state.currentIndex > 0) {
+        this.setState({ currentIndex: this.state.currentIndex - 1 });
+
+        return false;
+      }
+    }
+
+    if (event.wheelDelta < 0) {
+      if (this.state.currentIndex < 2) {
+        this.setState({ currentIndex: this.state.currentIndex + 1 });
+
+        return false;
+      }
+    }
+  };
   render() {
     const renderText = (index) => {
       return (
@@ -32,17 +83,7 @@ class Login extends Component {
           <div className={styles.subtitle}>{displayText[index].subtitle}</div>
           <div className={styles.title}>{displayText[index].title}</div>
           <a href={displayText[index].href}>
-            <div
-              className={styles.button}
-              style={
-                this.state.currentIndex === 0
-                  ? {}
-                  : {
-                      borderColor: "rgba(88,88,88,1)",
-                      color: "rgba(88,88,88,1)",
-                    }
-              }
-            >
+            <div className={styles.button}>
               <div>{displayText[index].slogan}</div>
             </div>
           </a>
@@ -58,15 +99,7 @@ class Login extends Component {
               this.setState({ currentIndex: item });
             }}
             className={styles.dot}
-            style={
-              this.state.currentIndex === index
-                ? { opacity: 1 }
-                : this.state.currentIndex === 0
-                ? {}
-                : {
-                    backgroundColor: "rgba(88,88,88,1)",
-                  }
-            }
+            style={this.state.currentIndex === index ? { opacity: 1 } : {}}
           ></div>
         );
       });
@@ -76,53 +109,47 @@ class Login extends Component {
         <div className={styles.infoContainer}>
           {this.state.currentIndex === 0 ? (
             <div className={styles.firstScreen}>{renderText(0)}</div>
-          ) : this.state.currentIndex === 1 ? (
+          ) : null}
+          {this.state.currentIndex === 1 ? (
             <div className={styles.secondScreen}>{renderText(1)}</div>
-          ) : (
+          ) : null}
+          {this.state.currentIndex === 2 ? (
             <div className={styles.thirdScreen}>{renderText(2)}</div>
-          )}
+          ) : null}
+
           <div className={styles.dotContainer}>{renderDot()}</div>
         </div>
         <div
           className={styles.image}
           style={
-            this.state.currentIndex !== 2
-              ? {}
-              : {
-                  backgroundColor: "#E9EAE4",
-                }
+            this.state.currentIndex === 1
+              ? { backgroundColor: "#E5E2DD" }
+              : this.state.currentIndex === 2
+              ? { backgroundColor: "#EAE9E5" }
+              : {}
           }
         >
           <div className={styles.logo}>
             <div>
               <img
                 className={styles.logoImg}
-                src={
-                  this.state.currentIndex === 0
-                    ? "/icons/logo.png"
-                    : "/icons/dark-logo.svg"
-                }
+                src="/icons/dark-logo.svg"
                 alt=""
               />
-              <span
-                className={styles.logoText}
-                style={
-                  this.state.currentIndex === 0
-                    ? {}
-                    : { color: "rgba(88,88,88,1)" }
-                }
-              >
-                Soundify
-              </span>
+              <span className={styles.logoText}>Soundify</span>
             </div>
           </div>
-          {this.state.currentIndex === 0 ? (
-            <img src="/images/bg0.png" alt="" className={styles.bg0} />
-          ) : this.state.currentIndex === 1 ? (
-            <img src="/images/bg1.jpg" alt="" className={styles.bg1} />
-          ) : (
-            <img src="/images/bg2.jpg" alt="" className={styles.bg2} />
-          )}
+          <div className={styles.imageContainer}>
+            {this.state.currentIndex === 0 ? (
+              <img src="/images/bg0.png" alt="" className={styles.bg0} />
+            ) : null}
+            {this.state.currentIndex === 1 ? (
+              <img src="/images/bg1.png" alt="" className={styles.bg1} />
+            ) : null}
+            {this.state.currentIndex === 2 ? (
+              <img src="/images/bg2.jpg" alt="" className={styles.bg2} />
+            ) : null}
+          </div>
         </div>
       </div>
     );

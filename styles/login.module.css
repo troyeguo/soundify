@@ -8,18 +8,48 @@
   top: 0px;
   left: 0px;
   z-index: 0;
+  background-color: #e4e1d8;
+  height: 100%;
+  width: calc(100% - 524px);
+}
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 .bg0 {
-  height: 600px;
+  height: 400px;
+  animation: slidein 0.4s ease-in-out 0s 1;
+}
+.bg1 {
+  height: 400px;
+  animation: slidein 0.4s ease-in-out 0s 1;
+}
+.bg2 {
+  width: 1110px;
+  position: relative;
+  right: 200px;
+  z-index: -1;
+  animation: slidein 0.4s ease-in-out 0s 1;
 }
 @keyframes fadein {
   from {
-    opacity: 0.5;
-    transform: translateY(-30px);
+    opacity: 0;
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes slidein {
+  from {
+    transform: translateX(300px);
+  }
+  to {
+    transform: translateX(0px);
   }
 }
 .logo {
@@ -29,7 +59,7 @@
   position: absolute;
   left: 0px;
   top: 0px;
-  color: #fff;
+  color: #585858;
   font-weight: bold;
 }
 .logoImg {
@@ -50,23 +80,22 @@
   top: 0px;
   right: 0px;
   z-index: 10;
+  color: #585858;
 }
 .firstScreen {
-  background: rgba(28, 30, 33, 1);
+  background: rgb(224, 216, 190);
   opacity: 1;
-  color: white;
   position: relative;
   height: 100%;
 }
 .secondScreen {
-  background: rgba(255, 242, 223, 1);
-  color: #585858;
+  background: rgba(242, 237, 229, 1);
   position: relative;
   height: 100%;
 }
 .thirdScreen {
-  background: rgba(222, 222, 222, 1);
-  color: #585858;
+  background: #d5d5d5;
+
   position: relative;
   height: 100%;
 }
@@ -77,11 +106,11 @@
   font-family: Segoe UI;
   font-weight: 600;
   line-height: 50px;
-  opacity: 0.55;
+  color: #9d988e;
   position: absolute;
   left: 38px;
   top: 206px;
-  animation: fadein 0.2s ease-in-out 0s 1;
+  animation: fadein 0.4s ease-in-out 0s 1;
 }
 .title {
   width: 405px;
@@ -94,14 +123,14 @@
   position: absolute;
   left: 38px;
   top: 252px;
-  animation: fadein 0.2s ease-in-out 0.1s 1;
+  animation: fadein 0.4s ease-in-out 0s 1;
 }
 .button {
   width: 148px;
   height: 51px;
-  border: 2px solid rgba(255, 255, 255, 1);
+  border: 2px solid #585858;
   opacity: 1;
-  color: white;
+  color: #585858;
   border-radius: 9px;
   position: absolute;
   left: 38px;
@@ -112,7 +141,7 @@
   line-height: 51px;
   text-align: center;
   cursor: pointer;
-  animation: fadein 0.2s ease-in-out 0.2s 1;
+  animation: fadein 0.4s ease-in-out 0s 1;
 }
 .dotContainer {
   position: absolute;
@@ -122,22 +151,9 @@
 .dot {
   width: 10px;
   height: 10px;
-  background: rgba(255, 255, 255, 1);
+  background: #585858;
   border-radius: 50%;
   opacity: 0.33;
   float: left;
   margin-right: 8px;
-}
-.bg1 {
-  width: 900px;
-  position: relative;
-  right: 150px;
-  z-index: -1;
-}
-.bg2 {
-  width: 1110px;
-  position: relative;
-  right: 350px;
-  z-index: -1;
-  top: 50px;
 }

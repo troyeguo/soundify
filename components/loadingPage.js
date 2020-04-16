@@ -20,6 +20,7 @@ export default () => (
         position: relative;
         margin: auto auto;
         width: 80px;
+        left: 20px;
       }
       .loader:before {
         content: "";

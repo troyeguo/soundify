@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev node -r esm server.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
-    "export": "next export",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
+    "dev": "cross-env NODE_ENV=dev node server.js",
+    "build": "cross-env NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "export": "next export"
   },
   "dependencies": {
-    "@zeit/next-bundle-analyzer": "^0.1.2",
     "atob": "^2.1.2",
     "axios": "^0.19.2",
     "cookie-parser": "^1.4.5",
@@ -18,20 +16,11 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
-    "esm": "^3.2.25",
     "express": "^4.17.1",
-    "ioredis": "^4.16.2",
-    "koa": "^2.11.0",
     "koa-body": "^4.1.1",
-    "koa-router": "^8.0.8",
-    "koa-session": "^5.13.1",
-    "lockr": "^0.8.5",
-    "lodash": "^4.17.15",
-    "lru-cache": "^5.1.1",
-    "moment": "^2.24.0",
     "next": "9.3.4",
+    "next-transpile-modules": "^3.2.0",
     "nodemon": "^2.0.3",
-    "prop-types": "^15.7.2",
     "querystring": "^0.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -41,7 +30,6 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "request": "^2.88.2",
-    "webpack": "^4.42.1"
+    "request": "^2.88.2"
   }
 }

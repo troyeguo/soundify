@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as actionTypes from "../redux/action";
 import $axios from "../$axios";
 import LoadingPage from "./LoadingPage";
-import { AudioAnimation, AudioStop } from "./audioAnimation";
+import { AudioAnimation, AudioStop } from "./AudioAnimation";
 class Player extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +20,7 @@ class Player extends Component {
       durationStamp: "00:00",
       player_init_error: false,
       user: null,
+      noConnection: false,
     };
 
     this.player = null;
@@ -28,11 +29,19 @@ class Player extends Component {
   }
 
   componentDidMount() {
+    let count = 0;
+    let countInterval = setInterval(() => {
+      count++;
+      if (count > 15) {
+        this.setState({ noConnection: true });
+        clearInterval(countInterval);
+      }
+    }, 1000);
     this.setState({
       token: localStorage.getItem("react-spotify-access-token"),
     });
     let newUser = localStorage.getItem("newUser");
-    console.log(newUser, "newUser");
+    // console.log(newUser, "newUser");
     if (newUser) {
       this.setState({ user: JSON.parse(newUser) });
     }
@@ -122,6 +131,11 @@ class Player extends Component {
       this.setState({ deviceId: device_id }, () => {
         this.transferPlaybackHere();
       });
+      let newUser = localStorage.getItem("newUser");
+      // console.log(newUser, "newUser");
+      if (newUser) {
+        this.setState({ user: JSON.parse(newUser) });
+      }
       this.player.getVolume().then((vol) => {
         let volume = vol * 100;
         this.setState({ volumeSliderValue: volume });
@@ -164,7 +178,7 @@ class Player extends Component {
       }),
     })
       .then((res) => {
-        console.log("status", res);
+        // console.log("status", res);
         if (res.status === 204) {
           $axios
             .get("https://api.spotify.com/v1/me/player")
@@ -206,7 +220,24 @@ class Player extends Component {
   };
 
   render() {
-    console.log(this.state.playingInfo, this.state.user, "this.state.user");
+    // console.log(this.state.playingInfo, this.state.user, "this.state.user");
+    if (
+      !(this.state.playingInfo && this.state.user) &&
+      this.state.noConnection
+    ) {
+      return (
+        <div className={styles.player}>
+          <div className={styles.loadingContainer}>
+            <div className={styles.loadingText}>
+              This takes longer than expected, first make sure your internet
+              connection to spotify is fine, then go to spotify and select
+              Soundify manually in your spotify connect devices and refresh the
+              website
+            </div>
+          </div>
+        </div>
+      );
+    }
     if (!this.state.playingInfo || !this.state.user) {
       return (
         <div className={styles.player}>

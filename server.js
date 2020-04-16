@@ -78,10 +78,10 @@ nextApp.prepare().then(() => {
   });
 
   app.post("/refresh", function (req, res) {
-    console.log(req, "req");
+    // console.log(req, "req");
     req.on("data", function (data) {
       var token = JSON.parse(data).refresh_token;
-      console.log(token, "server refresh");
+      // console.log(token, "server refresh");
       var authOptions = {
         url: "https://accounts.spotify.com/api/token",
         form: {
@@ -96,7 +96,7 @@ nextApp.prepare().then(() => {
         json: true,
       };
       request.post(authOptions, function (err, response, body) {
-        console.log(err, response, body, "err, response, body");
+        // console.log(err, response, body, "err, response, body");
         res.json(response.body);
       });
     });
@@ -105,7 +105,7 @@ nextApp.prepare().then(() => {
   app.get("/callback", function (req, res) {
     // your application requests refresh and access tokens
     // after checking the state parameter
-    console.log(req.query);
+    // console.log(req.query);
     var code = req.query.code || null;
     var state = req.query.state || null;
     var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -147,7 +147,7 @@ nextApp.prepare().then(() => {
 
           // use the access token to access the Spotify Web API
           request.get(options, function (error, response, body) {
-            console.log(body);
+            // console.log(body);
           });
 
           // we can also pass the token to the browser to make requests from there

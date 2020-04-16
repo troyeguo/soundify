@@ -222,8 +222,9 @@
   text-align: center;
   color: rgba(61, 63, 134, 1);
   font-size: 15px;
-  line-height: 30px;
+  line-height: 18px;
   font-weight: bold;
+  width: 80%;
 }
 .loadingContainer {
   width: 100%;
