@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "next/router";
-import Sidebar from "./Sidebar";
-import Player from "./Player";
+import Sidebar from "./sidebar";
+import Player from "./player";
 import * as actionTypes from "../redux/action";
 import { connect } from "react-redux";
 
