@@ -46,7 +46,7 @@ var generateRandomString = function (length) {
 };
 
 var stateKey = "spotify_auth_state";
-const PORT = 3000;
+const PORT = process.env.PORT;
 // 给node全局增加atob方法
 global.atob = atob;
 
