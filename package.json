@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev node server.js",
     "build": "cross-env NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
     "prestart": "cross-env NODE_ENV=production next build",
     "export": "next export"
   },
