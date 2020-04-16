@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev PORT=3000 node server.js",
+    "dev": "cross-env NODE_ENV=dev node server.js",
     "build": "cross-env NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production node server.js",
     "prestart": "cross-env NODE_ENV=production next build",
