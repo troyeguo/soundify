@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Router, { withRouter } from "next/router";
 import * as actionTypes from "../redux/action/index";
 import axios from "axios";
+import $axios from "../$axios";
 import { connect } from "react-redux";
 import Login from "../components/Login";
 class Index extends Component {
@@ -90,8 +91,8 @@ class Index extends Component {
             );
             if (refreshToken) {
               // Send refresh token to server to acquire a new access token
-              axios
-                .post("http://localhost:3000/refresh", {
+              $axios
+                .post("/refresh", {
                   data: JSON.stringify({
                     refresh_token: refreshToken,
                   }),

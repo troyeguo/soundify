@@ -1,9 +1,10 @@
 import axios from "axios";
-import * as actionTypes from "./redux/action/index";
-import { connect } from "react-redux";
-// dotenv.config();
-// console.log(process.env.NODE_ENV, "REACT_APP_BASE_URL");
+
 const $axios = axios.create({
+  baseURL:
+    process.env.NODE_ENV === "dev"
+      ? "http://localhost:3000"
+      : "https://soundify-web.herokuapp.com",
   timeout: 6000,
   retry: 4,
   retryDelay: 1000,
@@ -45,7 +46,7 @@ $axios.interceptors.response.use(
         console.log(refresh_token);
         // return window.location.reload();
         return axios
-          .post("http://localhost:3000/refresh", {
+          .post("/refresh", {
             refresh_token: localStorage.getItem("react-spotify-refresh-token"),
           })
           .then((res) => {
