@@ -231,8 +231,8 @@ class Player extends Component {
             <div className={styles.loadingText}>
               This takes longer than expected, first make sure your internet
               connection to spotify is fine, then go to spotify and select
-              Soundify manually in your spotify connect devices and refresh the
-              website
+              Soundify manually in your spotify connect devices, refresh the
+              website after all work is done
             </div>
           </div>
         </div>
