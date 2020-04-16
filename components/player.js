@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as actionTypes from "../redux/action";
 import $axios from "../$axios";
 import LoadingPage from "./LoadingPage";
-import { AudioAnimation, AudioStop } from "./AudioAnimation";
+import { AudioAnimation, AudioStop } from "./audioAnimation";
 class Player extends Component {
   constructor(props) {
     super(props);
