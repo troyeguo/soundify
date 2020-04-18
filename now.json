@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "builds": [{ "src": "server.js", "use": "@now/node-server" }],
+  "routes": [
+    {
+      "src": "/login",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/refresh",
+      "dest": "/server.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/callback",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/refresh_token",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/*",
+      "dest": "/server.js"
+    }
+  ]
+}

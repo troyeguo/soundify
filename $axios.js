@@ -57,6 +57,7 @@ $axios.interceptors.response.use(
                 "react-spotify-access-token",
                 res.data.access_token
               );
+              window.location.reload();
               // console.log("New token", res.data);
               // console.log(originalRequest);
 
