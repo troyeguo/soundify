@@ -4,7 +4,7 @@ const $axios = axios.create({
   baseURL:
     process.env.NODE_ENV === "dev"
       ? "http://localhost:3000"
-      : "soundify-534hwwomt.now.sh",
+      : "https://soundify.now.sh/",
   timeout: 6000,
   retry: 4,
   retryDelay: 1000,
