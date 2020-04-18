@@ -7,7 +7,7 @@
 
 ### Demo
 
-[Go to demo site](https://soundify.960960.xyz)
+[Go to demo site](soundify-534hwwomt.now.sh)
 
 ### Develop
 
