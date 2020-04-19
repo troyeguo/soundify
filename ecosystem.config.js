@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "Soundify",
-      script: "server.js",
+      script: "./server.js",
       instances: "max",
       env: {
         NODE_ENV: "dev",
