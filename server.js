@@ -102,7 +102,9 @@ nextApp.prepare().then(() => {
       });
     });
   });
-
+  app.post("/callback", (req, res) => {
+    res.send({ verified: true });
+  });
   app.get("/callback", function (req, res) {
     // your application requests refresh and access tokens
     // after checking the state parameter
@@ -206,7 +208,7 @@ nextApp.prepare().then(() => {
   });
 
   app.listen(PORT, () => {
-    console.log(`koa server listening on ${PORT}`);
+    console.log(`server listening on ${PORT}`);
   });
 });
 

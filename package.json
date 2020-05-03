@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev node server.js",
+    "dev": "cross-env NODE_ENV=dev nodemon server.js",
     "build": "cross-env NODE_ENV=production next build",
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "prestart": "cross-env NODE_ENV=production next build",
