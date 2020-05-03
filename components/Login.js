@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import styles from "../styles/login.module.css";
-
+console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
 const displayText = [
   {
     title: "Stream your music with Soundify",
     subtitle: "A third party client for spotify",
     slogan: "Get Started",
     href:
-      process.env.NODE_ENV === "dev"
+      process.env.NODE_ENV === "development"
         ? "http://localhost:3000/login"
         : "https://soundify.960960.xyz/login",
   },

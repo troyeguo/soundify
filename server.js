@@ -13,8 +13,7 @@ const dev = process.env.NODE_ENV !== "production";
 console.log(dev, "dev");
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
-var mode = process.env.NODE_ENV === "dev" ? "dev" : "prod"; // "dev" or "prod"
-console.log(mode);
+var mode = process.env.NODE_ENV === "development" ? "dev" : "prod";
 var modes = {
   prod: {
     baseURL: process.env.PROD_BASE_URL,
@@ -25,6 +24,7 @@ var modes = {
     redirect_uri: process.env.DEV_REDIRECT_URI,
   },
 };
+console.log(modes[mode].redirect_uri);
 
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
@@ -102,7 +102,7 @@ nextApp.prepare().then(() => {
       });
     });
   });
-  app.post("/callback", (req, res) => {
+  app.post("/alipay", (req, res) => {
     res.send({ verified: true });
   });
   app.get("/callback", function (req, res) {

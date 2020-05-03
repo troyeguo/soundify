@@ -2,7 +2,7 @@ import axios from "axios";
 
 const $axios = axios.create({
   baseURL:
-    process.env.NODE_ENV === "dev"
+    process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
       : "https://soundify.960960.xyz",
   timeout: 6000,
@@ -57,7 +57,7 @@ $axios.interceptors.response.use(
                 "react-spotify-access-token",
                 res.data.access_token
               );
-              window.location.reload();
+              // window.location.reload();
               // console.log("New token", res.data);
               // console.log(originalRequest);
 
