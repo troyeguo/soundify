@@ -204,13 +204,8 @@ nextApp.prepare().then(() => {
 
   app.all("*", (req, res) => {
     const parsedUrl = url.parse(req.url, true);
-    const { pathname } = parsedUrl;
-    if (pathname === "/sw.js" || pathname.startsWith("/workbox-")) {
-      const filePath = join(__dirname, ".next", pathname);
-      nextApp.serveStatic(req, res, filePath);
-    } else {
-      handle(req, res, parsedUrl);
-    }
+
+    handle(req, res, parsedUrl);
   });
 
   app.listen(PORT, () => {
