@@ -20,7 +20,7 @@
 .enterTitle {
   font-size: 25px;
   font-family: Segoe UI;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 80px;
   color: rgba(32, 34, 99, 1);
   opacity: 1;
@@ -39,7 +39,7 @@
 .welcomeTitle {
   font-size: 30px;
   font-family: Segoe UI;
-  font-weight: bold;
+  font-weight: 500;
   color: rgba(32, 34, 99, 1);
   opacity: 1;
   text-align: center;
@@ -64,7 +64,7 @@
 .welcomeButton {
   width: 138px;
   height: 40px;
-  background: rgb(0, 84, 148);
+  background: #4b4fd3;
   opacity: 1;
   border-radius: 5px;
   text-align: center;
@@ -81,7 +81,7 @@
   font-size: 15px;
   font-family: Segoe UI;
   font-weight: 600;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   opacity: 1;
   text-align: center;
   margin-top: 7px;

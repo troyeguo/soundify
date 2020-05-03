@@ -19,7 +19,7 @@ export const AudioAnimation = () => (
         display: inline-block;
         width: 6px;
         height: 90px;
-        background-color: rgb(0, 84, 148);
+        background-color: #5b6feb;
         margin: 2px;
         border-radius: 5px;
       }
@@ -285,7 +285,7 @@ export const AudioStop = () => {
           display: inline-block;
           width: 6px;
           height: 90px;
-          background-color: rgb(0, 84, 148);
+          background-color: #5b6feb;
           margin: 2px;
           border-radius: 5px;
         }

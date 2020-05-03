@@ -26,7 +26,7 @@ class Sidebar extends Component {
           <div className={styles.logo}>
             <Link href="/">
               <div>
-                <img className={styles.logoImg} src="/icons/logo.png" alt="" />
+                <img className={styles.logoImg} src="/icons/logo.svg" alt="" />
                 <span className={styles.logoText}>Soundify</span>
               </div>
             </Link>

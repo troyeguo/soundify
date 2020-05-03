@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37">
   <g id="组_574" data-name="组 574" transform="translate(-1230.641 -164.641)">
-    <circle id="椭圆_73" data-name="椭圆 73" cx="18.5" cy="18.5" r="18.5" transform="translate(1230.641 164.641)" fill="rgb(0, 84, 148)" opacity="0.11"/>
-    <path id="路径_1979" data-name="路径 1979" d="M1065.612,907.281l7.761,7.761-7.761,7.761" transform="translate(180.917 -731.914)" fill="none" stroke="#3d3f86" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <circle id="椭圆_73" data-name="椭圆 73" cx="18.5" cy="18.5" r="18.5" transform="translate(1230.641 164.641)" fill="#5B6FEB" opacity="0.11"/>
+    <path id="路径_1979" data-name="路径 1979" d="M1065.612,907.281l7.761,7.761-7.761,7.761" transform="translate(180.917 -731.914)" fill="none" stroke="#4B4FD3" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
   </g>
 </svg>

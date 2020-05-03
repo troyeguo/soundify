@@ -21,3 +21,20 @@
   height: 300px;
   overflow-y: scroll;
 }
+.play-icon:hover {
+  transform: scale(1.1);
+}
+.album-disc {
+  background-color: #4a4a4a;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: relative;
+  left: 28px;
+  bottom: 110px;
+  z-index: -1;
+}
+.ablum-title {
+  position: relative;
+  bottom: 100px;
+}

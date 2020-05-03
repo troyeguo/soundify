@@ -82,6 +82,7 @@ class Artists extends Component {
                           src={artist.images[1].url}
                           alt=""
                           className={styles.contentCover}
+                          style={{ borderRadius: "50%" }}
                         />
 
                         <div className={styles.contentTitle}>{artist.name}</div>

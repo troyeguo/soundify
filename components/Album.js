@@ -82,13 +82,15 @@ class Album extends Component {
                           alt=""
                           className={styles.contentCover}
                         />
-
-                        <div className={styles.contentTitle}>
-                          {album.album.name}
+                        <div className="album-disc"></div>
+                        <div className="ablum-title"> 
+                          <div className={styles.contentTitle}>
+                            {album.album.name}
+                          </div>
+                          {this.state.currentIndex === index ? (
+                            <div className={styles.contentSelector}></div>
+                          ) : null}
                         </div>
-                        {this.state.currentIndex === index ? (
-                          <div className={styles.contentSelector}></div>
-                        ) : null}
                       </div>
                     ))}
                   </div>
@@ -134,7 +136,6 @@ class Album extends Component {
                             )
                           }
                         />
-
                         <ul className={styles.contentListContainer}>
                           <div className={styles.songListContainer}>
                             <div>

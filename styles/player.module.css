@@ -24,9 +24,9 @@
 }
 .logOut {
   font-size: 15px;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   margin-right: 50px;
-  font-weight: bold;
+  font-weight: 500;
   position: relative;
   bottom: 12px;
   left: 20px;
@@ -34,11 +34,12 @@
 .nickname {
   font-size: 14px;
   line-height: 80px;
-  color: rgb(19, 20, 44);
+  color: #3d3f86;
   margin-left: 12px;
   position: relative;
   bottom: 12px;
   margin-right: 30px;
+  font-weight: 500;
 }
 .playerCoverContainer {
   height: 210px;
@@ -108,7 +109,7 @@
   width: 204px;
   height: 204px;
   background: rgba(255, 255, 255, 0.66);
-  border: 5px solid rgb(0, 84, 148);
+  border: 5px solid #4b4fd3;
   position: relative;
   bottom: 211px;
   left: 65px;
@@ -120,9 +121,9 @@
   width: 80%;
   font-size: 18px;
   font-family: Roboto;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 20px;
-  margin-left: 40px;
+  margin-left: 36px;
   color: rgba(70, 73, 90, 1);
   text-align: center;
   white-space: nowrap;
@@ -132,7 +133,7 @@
 .artistName {
   font-size: 15px;
   line-height: 17px;
-  font-weight: bold;
+  font-weight: 500;
   color: rgba(70, 73, 90, 1);
   opacity: 0.4;
   text-align: center;
@@ -166,7 +167,7 @@
   font-family: Segoe UI;
   font-weight: 600;
   line-height: 17px;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   opacity: 1;
 }
 .nextListContainer {
@@ -198,14 +199,14 @@
   font-family: Segoe UI;
   font-weight: 600;
   line-height: 16px;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   opacity: 1;
 }
 .nextArtistName {
   font-size: 14px;
   font-family: Segoe UI;
   line-height: 13px;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   opacity: 0.59;
   font-weight: 500;
 }
@@ -220,10 +221,10 @@
 }
 .loadingText {
   text-align: center;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   font-size: 15px;
   line-height: 18px;
-  font-weight: bold;
+  font-weight: 500;
   width: 80%;
 }
 .loadingContainer {

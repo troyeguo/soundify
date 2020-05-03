@@ -60,7 +60,7 @@
   left: 0px;
   top: 0px;
   color: #585858;
-  font-weight: bold;
+  font-weight: 500;
 }
 .logoImg {
   width: 42px;
@@ -117,7 +117,7 @@
   height: 110px;
   font-size: 45px;
   font-family: Segoe UI;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 50px;
   opacity: 1;
   position: absolute;
@@ -137,7 +137,7 @@
   top: 382px;
   font-size: 20px;
   font-family: Segoe UI;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 51px;
   text-align: center;
   cursor: pointer;

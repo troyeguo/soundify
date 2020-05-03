@@ -301,13 +301,19 @@ class Player extends Component {
           </div>
         </div>
         <div className={styles.playerPanel}>
-          <img src="/icons/prev.svg" alt="" onClick={this.onPrevClick} />
+          <img
+            src="/icons/prev.svg"
+            alt=""
+            onClick={this.onPrevClick}
+            className="play-icon"
+          />
           {this.state.playing ? (
             <img
               src="/icons/playing.svg"
               alt=""
               style={{ width: "45px" }}
               onClick={this.onPlayClick}
+              className="play-icon"
             />
           ) : (
             <img
@@ -315,9 +321,15 @@ class Player extends Component {
               alt=""
               style={{ width: "45px" }}
               onClick={this.onPlayClick}
+              className="play-icon"
             />
           )}
-          <img src="/icons/next.svg" alt="" onClick={this.onNextClick} />
+          <img
+            src="/icons/next.svg"
+            alt=""
+            onClick={this.onNextClick}
+            className="play-icon"
+          />
         </div>
 
         <div className={styles.playerNext}>

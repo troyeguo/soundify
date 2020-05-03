@@ -1,7 +1,7 @@
 .contentSelector {
   width: 100%;
   height: 4px;
-  background: rgb(0, 84, 148);
+  background: #4b4fd3;
   opacity: 1;
 }
 .coverContainer {
@@ -17,10 +17,11 @@
   height: 137px;
   position: relative;
   right: 0px;
+  padding-left: 10px;
 }
 .contentCoverContainer {
   float: left;
-  margin: 20px 50px 0px 0px;
+  margin: 20px 42px 0px 0px;
   cursor: pointer;
 }
 .contentTitle {
@@ -37,6 +38,9 @@
   text-overflow: ellipsis;
   cursor: pointer;
 }
+.contentTitle:hover {
+  transform: scale(1.1);
+}
 .contentCover {
   background: rgba(0, 0, 0, 0);
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
@@ -47,11 +51,17 @@
   margin-bottom: 5px;
   cursor: pointer;
 }
+.contentCover:hover {
+  transform: scale(1.05);
+}
 .nextIcon {
   position: absolute;
   left: 670px;
   top: 110px;
   cursor: pointer;
+}
+.nextIcon:hover {
+  transform: scale(1.2);
 }
 .prevIcon {
   position: absolute;
@@ -60,10 +70,13 @@
   transform: rotate(180deg);
   cursor: pointer;
 }
+.prevIcon:hover {
+  transform: rotate(180deg) scale(1.2);
+}
 .contentSelector {
   width: 100%;
   height: 4px;
-  background: rgb(0, 84, 148);
+  background: #4b4fd3;
   opacity: 1;
 }
 .contentLine {
@@ -77,6 +90,9 @@
   position: absolute;
   right: -20px;
   top: 68px;
+}
+.playButtonShadow:hover {
+  transform: scale(1.2);
 }
 .contentListContainer {
   float: left;
@@ -98,7 +114,7 @@
   font-family: Segoe UI;
   font-weight: 600;
   line-height: 40px;
-  color: rgba(61, 63, 134, 1);
+  color: #3d3f86;
   opacity: 1;
   margin: 7px;
   width: 100%;
@@ -110,10 +126,16 @@
 .favoriteIcon {
   width: 18px;
   margin: 12px 5px;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
 }
 .listPlayIcon {
   width: 27px;
   margin: 7px 7px 7px 0px;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
 }
 .trackName {
   width: 200px;
