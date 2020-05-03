@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Router, { withRouter } from "next/router";
 import * as actionTypes from "../redux/action/index";
 import axios from "axios";
-import $axios from "../$axios";
+import $axios from "../lib/$axios";
 import { connect } from "react-redux";
 import Login from "../components/Login";
 class Index extends Component {

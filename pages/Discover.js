@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as actionTypes from "../redux/action/index";
-import $axios from "../$axios";
+import $axios from "../lib/$axios";
 import { connect } from "react-redux";
 import { SpotifyApiContext, SpotifyApiAxiosContext } from "react-spotify-api";
 import DiscoverBody from "../components/Discover";

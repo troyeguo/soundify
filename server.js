@@ -8,9 +8,7 @@ var dotenv = require("dotenv");
 var cors = require("cors");
 dotenv.config();
 const atob = require("atob");
-const { createServer } = require("http");
 const { join } = require("path");
-const { parse } = require("url");
 const dev = process.env.NODE_ENV !== "production";
 console.log(dev, "dev");
 const nextApp = next({ dev });
@@ -209,7 +207,7 @@ nextApp.prepare().then(() => {
     const { pathname } = parsedUrl;
     if (pathname === "/sw.js" || pathname.startsWith("/workbox-")) {
       const filePath = join(__dirname, ".next", pathname);
-      app.serveStatic(req, res, filePath);
+      nextApp.serveStatic(req, res, filePath);
     } else {
       handle(req, res, parsedUrl);
     }

@@ -3,7 +3,7 @@ import { withRouter } from "next/router";
 import styles from "../styles/player.module.css";
 import { connect } from "react-redux";
 import * as actionTypes from "../redux/action/index";
-import $axios from "../$axios";
+import $axios from "../lib/$axios";
 import LoadingPage from "./LoadingPage";
 import { AudioAnimation, AudioStop } from "./AudioAnimation";
 class Player extends Component {
