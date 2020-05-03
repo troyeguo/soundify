@@ -7,6 +7,8 @@
 
 ### Demo
 
+The heroku app require extra time to wake up, please wait about 10s before the website can be accessible
+
 [Go to demo site](https://soundify.960960.xyz)
 
 ### Develop
