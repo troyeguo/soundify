@@ -21,7 +21,7 @@ const displayText = [
     title: "Amazing tool from Troye Guo",
     subtitle: "Looking for a good job",
     slogan: "About Me",
-    href: "http://102410.xyz",
+    href: "http://960960.xyz",
   },
 ];
 class Login extends Component {

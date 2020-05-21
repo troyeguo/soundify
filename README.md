@@ -1,16 +1,21 @@
 <h1 align="center">Soundify</h1>
-<h3 align="center">A PWA Spotify web player written in Next.js</h3>
-### Preview
+<h3 align="center">一个 基于 Spotify API 开发网页音乐播放器</h3>
+
+### 预览
 
 <img src="/public/demo.png">
 
-### Demo
+### 技术栈
 
-The heroku app require extra time to wake up, please wait about 10s before the website can be accessible
+使用 **Next.js** 实现服务端渲染，使用 **OAuth** 实现用户信息认证，使用 **react-spotify-api** 插件实现对 **Spotify API** 的访问。
 
-[Go to demo site](https://soundify.960960.xyz)
+### 使用方法
 
-### Develop
+网站托管在 **Heroku** 上，由于免费应用的限制，网站需要 10s 左右的启动时间，请耐心等待
+
+[点我前往](https://soundify.960960.xyz)
+
+### 运行源码
 
 ```bash
 git clone https://github.com/troyeguo/soundify.git
@@ -19,8 +24,6 @@ yarn
 yarn dev
 ```
 
-Enjoy!
+### 帮助和反馈
 
-### Feedback
-
-Post your questions in the issue section.
+您可以在 issue 区提问，我会在力所能及的范围内提供帮助
