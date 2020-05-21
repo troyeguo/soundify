@@ -3,7 +3,7 @@
 
 ### 预览
 
-<img src="https://i.loli.net/2020/05/21/ayuBKUcmDbZAJRV.png">
+<img src="https://i.loli.net/2020/05/21/iOVStcAF73bwJN9.png">
 
 ### 技术栈
 
