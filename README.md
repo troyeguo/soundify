@@ -1,6 +1,5 @@
 <h1 align="center">Soundify</h1>
 <h3 align="center">A PWA Spotify web player written in Next.js</h3>
-
 ### Preview
 
 <img src="/public/demo.png">
@@ -14,10 +13,10 @@ The heroku app require extra time to wake up, please wait about 10s before the w
 ### Develop
 
 ```bash
-$ git clone https://github.com/troyeguo/soundify.git
-$ cd soundify
-$ yarn
-$ yarn dev
+git clone https://github.com/troyeguo/soundify.git
+cd soundify
+yarn
+yarn dev
 ```
 
 Enjoy!
