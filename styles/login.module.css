@@ -28,10 +28,7 @@
   animation: slidein 0.4s ease-in-out 0s 1;
 }
 .bg2 {
-  width: 1110px;
-  position: relative;
-  right: 200px;
-  z-index: -1;
+  height: 400px;
   animation: slidein 0.4s ease-in-out 0s 1;
 }
 @keyframes fadein {
@@ -63,15 +60,16 @@
   font-weight: 500;
 }
 .logoImg {
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   z-index: 10;
 }
 .logoText {
-  font-size: 20px;
+  font-size: 23px;
   margin-left: 10px;
   position: relative;
-  bottom: 10px;
+  bottom: 15px;
+  font-weight: bold;
 }
 .infoContainer {
   width: 524px;
@@ -156,4 +154,5 @@
   opacity: 0.33;
   float: left;
   margin-right: 8px;
+  cursor: pointer;
 }

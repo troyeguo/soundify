@@ -34,6 +34,49 @@ class Home extends Component {
       this.props.playSong(uris);
     }
   };
+  renderTracks = (tracks) => {
+    console.log(tracks, "tracks");
+    return (
+      <div>
+        {tracks.data.items.map((track, index) => (
+          <li
+            key={track.track.id}
+            className={styles.contentList}
+            onMouseOver={() => {
+              this.handleIndex(index);
+            }}
+            onMouseLeave={() => {
+              this.handleIndex(-1);
+            }}
+          >
+            <div className={styles.indexName}>{index + 1}</div>
+            {this.state.hoverIndex === index ? (
+              <img
+                src="/icons/play.svg"
+                alt=""
+                className={styles.listPlayIcon}
+                onClick={() => this.playSongHandler(track.track, "test")}
+              />
+            ) : (
+              <img
+                src="/icons/favorite.svg"
+                alt=""
+                className={styles.favoriteIcon}
+              />
+            )}
+
+            <div className={styles.trackName}>{track.track.name}</div>
+            <div className={styles.trackArtist}>
+              {track.track.artists[0].name}
+            </div>
+            <div className={styles.trackAlbum}>{track.track.album.name}</div>
+
+            <img src="/icons/more_dot.svg" alt="" className={styles.moreDot} />
+          </li>
+        ))}
+      </div>
+    );
+  };
   render() {
     return (
       <div>
@@ -116,60 +159,7 @@ class Home extends Component {
                   </div>
                 ) : (
                   <UserTracks>
-                    {(tracks) =>
-                      tracks ? (
-                        <div>
-                          {tracks.items.map((track, index) => (
-                            <li
-                              key={track.track.id}
-                              className={styles.contentList}
-                              onMouseOver={() => {
-                                this.handleIndex(index);
-                              }}
-                              onMouseLeave={() => {
-                                this.handleIndex(-1);
-                              }}
-                            >
-                              <div className={styles.indexName}>
-                                {index + 1}
-                              </div>
-                              {this.state.hoverIndex === index ? (
-                                <img
-                                  src="/icons/play.svg"
-                                  alt=""
-                                  className={styles.listPlayIcon}
-                                  onClick={() =>
-                                    this.playSongHandler(track.track, "test")
-                                  }
-                                />
-                              ) : (
-                                <img
-                                  src="/icons/favorite.svg"
-                                  alt=""
-                                  className={styles.favoriteIcon}
-                                />
-                              )}
-
-                              <div className={styles.trackName}>
-                                {track.track.name}
-                              </div>
-                              <div className={styles.trackArtist}>
-                                {track.track.artists[0].name}
-                              </div>
-                              <div className={styles.trackAlbum}>
-                                {track.track.album.name}
-                              </div>
-
-                              <img
-                                src="/icons/more_dot.svg"
-                                alt=""
-                                className={styles.moreDot}
-                              />
-                            </li>
-                          ))}
-                        </div>
-                      ) : null
-                    }
+                    {(tracks) => tracks.data && this.renderTracks(tracks)}
                   </UserTracks>
                 )}
               </div>

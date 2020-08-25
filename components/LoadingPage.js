@@ -1,4 +1,4 @@
-export default () => (
+const LoadingPage = () => (
   <div className="root">
     <div className="showbox">
       <div className="loader">
@@ -98,3 +98,4 @@ export default () => (
     `}</style>
   </div>
 );
+export default LoadingPage;

@@ -7,6 +7,10 @@ class CustomDocument extends Document {
     return (
       <Html>
         <Head>
+          <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+TC"
+            rel="stylesheet"
+          />
           <script src="https://sdk.scdn.co/spotify-player.js"></script>
           <link rel="manifest" href="/manifest.json" />
         </Head>

@@ -46,7 +46,7 @@ var generateRandomString = function (length) {
 };
 
 var stateKey = "spotify_auth_state";
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 // 给node全局增加atob方法
 global.atob = atob;
 
@@ -101,9 +101,6 @@ nextApp.prepare().then(() => {
         res.json(response.body);
       });
     });
-  });
-  app.post("/alipay", (req, res) => {
-    res.send({ accountVerified: true, orderVerified: true });
   });
   app.get("/callback", function (req, res) {
     // your application requests refresh and access tokens

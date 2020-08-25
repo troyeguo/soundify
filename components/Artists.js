@@ -22,13 +22,14 @@ class Artists extends Component {
     console.log(coverList);
     let style = window.getComputedStyle(coverList);
     let right = style.getPropertyValue("right");
+
     if (
-      parseInt(right.substr(0, right.length - 2)) >
-      (coverItems.length - 1) * 107
+      parseInt(right.replace(/px/, "")) ===
+      Math.ceil(coverItems.length / 4 - 1) * 596
     ) {
       return;
     }
-    let newRight = `${parseInt(right.substr(0, right.length - 2)) + 625}px`;
+    let newRight = `${parseInt(right) + 596}px`;
     coverList.setAttribute("style", `right:${newRight}`);
   };
   handlePrev = () => {
@@ -39,11 +40,10 @@ class Artists extends Component {
     if (right === "0px") {
       return;
     }
-    let newRight = `${parseInt(right.substr(0, right.length - 2)) - 625}px`;
+    let newRight = `${parseInt(right) - 596}px`;
     coverList.setAttribute("style", `right:${newRight}`);
   };
   playSongHandler = (track, artist) => {
-    console.log(track, "track", artist, "playlist");
     if (artist) {
       let uris;
       if (!track) {
@@ -68,9 +68,9 @@ class Artists extends Component {
           <div className={styles.coverContainer}>
             <UserArtists>
               {(artists, loading, error) =>
-                artists && (
+                artists.data && (
                   <div className={styles.contentCoverList}>
-                    {artists.artists.items.map((artist, index) => (
+                    {artists.data.artists.items.map((artist, index) => (
                       <div
                         key={artist.id}
                         className={styles.contentCoverContainer}
@@ -79,7 +79,11 @@ class Artists extends Component {
                         }}
                       >
                         <img
-                          src={artist.images[1].url}
+                          src={
+                            artist.images[1].url
+                              ? artist.images[1].url
+                              : "/images/artist.jpg"
+                          }
                           alt=""
                           className={styles.contentCover}
                           style={{ borderRadius: "50%" }}
@@ -115,13 +119,13 @@ class Artists extends Component {
         />
         <UserArtists>
           {(artists, loading, error) =>
-            artists && (
+            artists.data && (
               <>
                 <ArtistTracks
-                  id={artists.artists.items[this.state.currentIndex].id}
+                  id={artists.data.artists.items[this.state.currentIndex].id}
                 >
                   {(tracks, loading, error) =>
-                    tracks && (
+                    tracks.data && (
                       <div>
                         <div className={styles.contentLine}></div>
                         <img
@@ -131,7 +135,9 @@ class Artists extends Component {
                           onClick={() =>
                             this.playSongHandler(
                               null,
-                              artists.artists.items[this.state.currentIndex]
+                              artists.data.artists.items[
+                                this.state.currentIndex
+                              ]
                             )
                           }
                         />
@@ -139,7 +145,7 @@ class Artists extends Component {
                         <ul className={styles.contentListContainer}>
                           <div className={styles.songListContainer}>
                             <div>
-                              {tracks.tracks.map((track, index) => (
+                              {tracks.data.tracks.map((track, index) => (
                                 <li
                                   key={track.name}
                                   className={styles.contentList}
@@ -161,7 +167,7 @@ class Artists extends Component {
                                       onClick={() =>
                                         this.playSongHandler(
                                           track,
-                                          artists.artists.items[
+                                          artists.data.artists.items[
                                             this.state.currentIndex
                                           ]
                                         )

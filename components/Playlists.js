@@ -24,12 +24,12 @@ class PlaylistComp extends Component {
     let style = window.getComputedStyle(coverList);
     let right = style.getPropertyValue("right");
     if (
-      parseInt(right.substr(0, right.length - 2)) >
-      (coverItems.length - 1) * 107
+      parseInt(right.replace(/px/, "")) ===
+      Math.ceil(coverItems.length / 4 - 1) * 596
     ) {
       return;
     }
-    let newRight = `${parseInt(right.substr(0, right.length - 2)) + 625}px`;
+    let newRight = `${parseInt(right) + 596}px`;
     coverList.setAttribute("style", `right:${newRight}`);
   };
   handlePrev = () => {
@@ -40,27 +40,131 @@ class PlaylistComp extends Component {
     if (right === "0px") {
       return;
     }
-    let newRight = `${parseInt(right.substr(0, right.length - 2)) - 625}px`;
+    let newRight = `${parseInt(right) - 596}px`;
     coverList.setAttribute("style", `right:${newRight}`);
   };
   playSongHandler = (track, playlist) => {
-    console.log(track, "track", playlist, "playlist");
-    if (playlist) {
+    if (playlist.data) {
       let uris;
       if (!track) {
         uris = JSON.stringify({
-          context_uri: playlist.uri,
+          context_uri: playlist.data.uri,
         });
       } else {
         uris = JSON.stringify({
-          context_uri: playlist.uri,
+          context_uri: playlist.data.uri,
           offset: {
             uri: track.uri,
           },
         });
       }
+      console.log(uris, "playlist");
       this.props.playSong(uris);
     }
+  };
+  renderCoverList = (playlists) => {
+    return (
+      <div className={styles.contentCoverList}>
+        {playlists.data.items.map((playlist, index) => {
+          return (
+            <div
+              key={index}
+              className={styles.contentCoverContainer}
+              onClick={() => {
+                this.handleIndex(index);
+              }}
+            >
+              <img
+                src={
+                  playlist.images[0]
+                    ? playlist.images[0].url
+                    : "/images/playlist.jpg"
+                }
+                alt=""
+                className={styles.contentCover}
+              />
+              <div className={styles.contentTitle}>{playlist.name}</div>
+              {this.state.currentIndex === index ? (
+                <div className={styles.contentSelector}></div>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+  renderPlaylist = (playlist) => {
+    return (
+      <div>
+        <div className={styles.contentLine}></div>
+        <img
+          src="/icons/play_with_shadow.svg"
+          alt=""
+          className={styles.playButtonShadow}
+          onClick={() => this.playSongHandler(null, playlist)}
+        />
+        {
+          <ul className={styles.contentListContainer}>
+            <div className={styles.songListContainer}>
+              <div>
+                {playlist.data.tracks.items.map((track, index) => (
+                  <li
+                    key={index}
+                    className={styles.contentList}
+                    onMouseOver={() => {
+                      this.handleSongIndex(index);
+                    }}
+                    onMouseLeave={() => {
+                      this.handleSongIndex(-1);
+                    }}
+                  >
+                    <div className={styles.indexName}>{index + 1}</div>
+                    {this.state.hoverIndex === index ? (
+                      <img
+                        src="/icons/play.svg"
+                        alt=""
+                        className={styles.listPlayIcon}
+                        onClick={() =>
+                          this.playSongHandler(track.track, playlist)
+                        }
+                      />
+                    ) : (
+                      <img
+                        src="/icons/favorite.svg"
+                        alt=""
+                        className={styles.favoriteIcon}
+                      />
+                    )}
+                    <div className={styles.trackName}>{track.track.name}</div>
+                    <div className={styles.trackArtist}>
+                      {track.track.artists[0].name}
+                    </div>
+                    <div className={styles.trackAlbum}>
+                      {track.track.album.name}
+                    </div>
+
+                    <img
+                      src="/icons/more_dot.svg"
+                      alt=""
+                      className={styles.moreDot}
+                    />
+                  </li>
+                ))}
+              </div>
+            </div>
+          </ul>
+        }
+      </div>
+    );
+  };
+  renderListContent = (playlists) => {
+    return (
+      <Playlist id={playlists.data.items[this.state.currentIndex].id}>
+        {(playlist, loading, error) =>
+          playlist.data && this.renderPlaylist(playlist)
+        }
+      </Playlist>
+    );
   };
   render() {
     return (
@@ -69,33 +173,7 @@ class PlaylistComp extends Component {
           <div className={styles.coverContainer}>
             <UserPlaylists>
               {(playlists, loading, error) =>
-                playlists ? (
-                  <>
-                    <div className={styles.contentCoverList}>
-                      {playlists.items.map((playlist, index) => (
-                        <div
-                          key={index}
-                          className={styles.contentCoverContainer}
-                          onClick={() => {
-                            this.handleIndex(index);
-                          }}
-                        >
-                          <img
-                            src={playlist.images[0].url}
-                            alt=""
-                            className={styles.contentCover}
-                          />
-                          <div className={styles.contentTitle}>
-                            {playlist.name}
-                          </div>
-                          {this.state.currentIndex === index ? (
-                            <div className={styles.contentSelector}></div>
-                          ) : null}
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                ) : null
+                playlists.data && this.renderCoverList(playlists)
               }
             </UserPlaylists>
           </div>
@@ -118,83 +196,7 @@ class PlaylistComp extends Component {
         />
         <UserPlaylists>
           {(playlists, loading, error) =>
-            playlists ? (
-              <>
-                <Playlist id={playlists.items[this.state.currentIndex].id}>
-                  {(playlist, loading, error) =>
-                    playlist && (
-                      <div>
-                        <div className={styles.contentLine}></div>
-                        <img
-                          src="/icons/play_with_shadow.svg"
-                          alt=""
-                          className={styles.playButtonShadow}
-                          onClick={() => this.playSongHandler(null, playlist)}
-                        />
-                        {
-                          <ul className={styles.contentListContainer}>
-                            <div className={styles.songListContainer}>
-                              <div>
-                                {playlist.tracks.items.map((track, index) => (
-                                  <li
-                                    key={index}
-                                    className={styles.contentList}
-                                    onMouseOver={() => {
-                                      this.handleSongIndex(index);
-                                    }}
-                                    onMouseLeave={() => {
-                                      this.handleSongIndex(-1);
-                                    }}
-                                  >
-                                    <div className={styles.indexName}>
-                                      {index + 1}
-                                    </div>
-                                    {this.state.hoverIndex === index ? (
-                                      <img
-                                        src="/icons/play.svg"
-                                        alt=""
-                                        className={styles.listPlayIcon}
-                                        onClick={() =>
-                                          this.playSongHandler(
-                                            track.track,
-                                            playlist
-                                          )
-                                        }
-                                      />
-                                    ) : (
-                                      <img
-                                        src="/icons/favorite.svg"
-                                        alt=""
-                                        className={styles.favoriteIcon}
-                                      />
-                                    )}
-                                    <div className={styles.trackName}>
-                                      {track.track.name}
-                                    </div>
-                                    <div className={styles.trackArtist}>
-                                      {track.track.artists[0].name}
-                                    </div>
-                                    <div className={styles.trackAlbum}>
-                                      {track.track.album.name}
-                                    </div>
-
-                                    <img
-                                      src="/icons/more_dot.svg"
-                                      alt=""
-                                      className={styles.moreDot}
-                                    />
-                                  </li>
-                                ))}
-                              </div>
-                            </div>
-                          </ul>
-                        }
-                      </div>
-                    )
-                  }
-                </Playlist>
-              </>
-            ) : null
+            playlists.data && this.renderListContent(playlists)
           }
         </UserPlaylists>
       </div>

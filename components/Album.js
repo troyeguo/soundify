@@ -22,13 +22,14 @@ class Album extends Component {
     console.log(coverList);
     let style = window.getComputedStyle(coverList);
     let right = style.getPropertyValue("right");
+    console.log(parseInt(right), Math.floor(coverItems / 4) * 596);
     if (
-      parseInt(right.substr(0, right.length - 2)) >
-      (coverItems.length - 1) * 107
+      parseInt(right.replace(/px/, "")) ===
+      Math.ceil(coverItems.length / 4 - 1) * 596
     ) {
       return;
     }
-    let newRight = `${parseInt(right.substr(0, right.length - 2)) + 625}px`;
+    let newRight = `${parseInt(right) + 596}px`;
     coverList.setAttribute("style", `right:${newRight}`);
   };
   handlePrev = () => {
@@ -39,7 +40,7 @@ class Album extends Component {
     if (right === "0px") {
       return;
     }
-    let newRight = `${parseInt(right.substr(0, right.length - 2)) - 625}px`;
+    let newRight = `${parseInt(right) - 596}px`;
     coverList.setAttribute("style", `right:${newRight}`);
   };
   playSongHandler = (track, album) => {
@@ -67,9 +68,9 @@ class Album extends Component {
           <div className={styles.coverContainer}>
             <UserAlbums>
               {(albums, loading, error) =>
-                albums && (
+                albums.data && (
                   <div className={styles.contentCoverList}>
-                    {albums.items.map((album, index) => (
+                    {albums.data.items.map((album, index) => (
                       <div
                         key={album.album.id}
                         className={styles.contentCoverContainer}
@@ -78,12 +79,16 @@ class Album extends Component {
                         }}
                       >
                         <img
-                          src={album.album.images[1].url}
+                          src={
+                            album.album.images[1].url
+                              ? album.album.images[1].url
+                              : "/images/album.jpg"
+                          }
                           alt=""
                           className={styles.contentCover}
                         />
                         <div className="album-disc"></div>
-                        <div className="ablum-title"> 
+                        <div className="ablum-title">
                           <div className={styles.contentTitle}>
                             {album.album.name}
                           </div>
@@ -117,13 +122,13 @@ class Album extends Component {
         />
         <UserAlbums>
           {(albums, loading, error) =>
-            albums ? (
+            albums.data ? (
               <>
                 <AlbumTracks
-                  id={albums.items[this.state.currentIndex].album.id}
+                  id={albums.data.items[this.state.currentIndex].album.id}
                 >
                   {(tracks, loading, error) =>
-                    tracks && (
+                    tracks.data && (
                       <div>
                         <div className={styles.contentLine}></div>
                         <img
@@ -132,14 +137,14 @@ class Album extends Component {
                           className={styles.playButtonShadow}
                           onClick={() =>
                             this.playSongHandler(
-                              albums.items[this.state.currentIndex].album
+                              albums.data.items[this.state.currentIndex].album
                             )
                           }
                         />
                         <ul className={styles.contentListContainer}>
                           <div className={styles.songListContainer}>
                             <div>
-                              {tracks.items.map((track, index) => (
+                              {tracks.data.items.map((track, index) => (
                                 <li
                                   key={track.name}
                                   className={styles.contentList}
@@ -161,8 +166,9 @@ class Album extends Component {
                                       onClick={() =>
                                         this.playSongHandler(
                                           track,
-                                          albums.items[this.state.currentIndex]
-                                            .album
+                                          albums.data.items[
+                                            this.state.currentIndex
+                                          ].album
                                         )
                                       }
                                     />
@@ -181,7 +187,7 @@ class Album extends Component {
                                   </div>
                                   <div className={styles.trackAlbum}>
                                     {
-                                      albums.items[this.state.currentIndex]
+                                      albums.data.items[this.state.currentIndex]
                                         .album.name
                                     }
                                   </div>

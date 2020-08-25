@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "../styles/login.module.css";
+import Fade from "react-reveal/Fade";
 console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
 const displayText = [
   {
@@ -39,6 +40,7 @@ class Login extends Component {
       // doc.addEventListener("mousewheel", recordCfi, false);
     }
   }
+
   mouseFirefox = (event) => {
     event.preventDefault();
 
@@ -83,9 +85,11 @@ class Login extends Component {
     const renderText = (index) => {
       return (
         <div>
-          <div className={styles.subtitle}>{displayText[index].subtitle}</div>
+          <Fade down>
+            <div className={styles.subtitle}>{displayText[index].subtitle}</div>
+          </Fade>
           <div className={styles.title}>{displayText[index].title}</div>
-          <a href={displayText[index].href}>
+          <a href={displayText[index].href} target="_blank">
             <div className={styles.button}>
               <div>{displayText[index].slogan}</div>
             </div>
@@ -143,15 +147,24 @@ class Login extends Component {
             </div>
           </div>
           <div className={styles.imageContainer}>
-            {this.state.currentIndex === 0 ? (
-              <img src="/images/bg0.png" alt="" className={styles.bg0} />
-            ) : null}
-            {this.state.currentIndex === 1 ? (
-              <img src="/images/bg1.png" alt="" className={styles.bg1} />
-            ) : null}
-            {this.state.currentIndex === 2 ? (
-              <img src="/images/bg2.jpg" alt="" className={styles.bg2} />
-            ) : null}
+            <img
+              src="/images/bg0.png"
+              alt=""
+              className={styles.bg0}
+              style={this.state.currentIndex === 0 ? {} : { display: "none" }}
+            />
+            <img
+              src="/images/bg1.png"
+              alt=""
+              className={styles.bg1}
+              style={this.state.currentIndex === 1 ? {} : { display: "none" }}
+            />
+            <img
+              src="/images/bg2.png"
+              alt=""
+              className={styles.bg2}
+              style={this.state.currentIndex === 2 ? {} : { display: "none" }}
+            />
           </div>
         </div>
       </div>
