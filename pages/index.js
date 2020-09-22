@@ -130,7 +130,6 @@ class Index extends Component {
                   this.setState({ loading: false });
                 });
             } else {
-              // Refresh token doesn't exist, the user is shown a 'login with Spotify button'
               this.setState({ loading: false });
             }
           }

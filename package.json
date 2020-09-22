@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server.js",
-    "build": "cross-env NODE_ENV=production next build",
+    "build": "cross-env NODE_ENV=production next build && next export",
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "prestart": "cross-env NODE_ENV=production next build",
     "export": "next export",
