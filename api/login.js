@@ -28,7 +28,6 @@ module.exports = (req, res) => {
         client_id: client_id,
         scope: scope,
         redirect_uri: modes[mode].redirect_uri,
-        state: state,
       })
   );
 };
