@@ -12,6 +12,7 @@ var modes = {
 };
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
+var stateKey = "spotify_auth_state";
 
 module.exports = (req, res) => {
   var code = req.query.code || null;

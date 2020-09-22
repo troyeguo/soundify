@@ -22,6 +22,7 @@ var modes = {
 console.log(modes[mode].redirect_uri);
 
 var client_id = process.env.CLIENT_ID; // Your client id
+var stateKey = "spotify_auth_state";
 
 module.exports = (req, res) => {
   var state = generateRandomString(16);
