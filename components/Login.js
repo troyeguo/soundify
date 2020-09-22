@@ -10,7 +10,7 @@ const displayText = [
     href:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/login"
-        : "https://soundify.960960.xyz/login",
+        : "https://soundify.960960.xyz/api/login",
   },
   {
     title: "Proudly made with Next.js",
