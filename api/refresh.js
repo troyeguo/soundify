@@ -1,14 +1,14 @@
-var dotenv = require("dotenv");
+const dotenv = require("dotenv");
 dotenv.config();
 
-var client_id = process.env.CLIENT_ID; // Your client id
-var client_secret = process.env.CLIENT_SECRET; // Your secret
+const client_id = process.env.CLIENT_ID; // Your client id
+const client_secret = process.env.CLIENT_SECRET; // Your secret
 
 module.exports = (req, res) => {
   req.on("data", function (data) {
-    var token = JSON.parse(data).refresh_token;
+    const token = JSON.parse(data).refresh_token;
     // console.log(token, "server refresh");
-    var authOptions = {
+    const authOptions = {
       url: "https://accounts.spotify.com/api/token",
       form: {
         refresh_token: token,

@@ -2,16 +2,6 @@ var querystring = require("querystring");
 var dotenv = require("dotenv");
 dotenv.config();
 
-var generateRandomString = function (length) {
-  var text = "";
-  var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
 var mode = process.env.NODE_ENV === "development" ? "dev" : "prod";
 var modes = {
   prod: {
@@ -26,12 +16,8 @@ var modes = {
 console.log(modes[mode].redirect_uri);
 
 var client_id = process.env.CLIENT_ID; // Your client id
-var stateKey = "spotify_auth_state";
 
 module.exports = (req, res) => {
-  var state = generateRandomString(16);
-  res.setHeader("Set-Cookie", [`${state}=${stateKey}; HttpOnly`]);
-
   // your application requests authorization
   var scope =
     "user-read-private user-read-email playlist-modify-private playlist-read-private playlist-read-collaborative playlist-modify-public user-follow-modify user-follow-read app-remote-control streaming user-read-currently-playing user-modify-playback-state user-read-playback-state user-library-modify user-library-read user-read-recently-played user-top-read";

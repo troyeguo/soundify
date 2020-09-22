@@ -1,12 +1,12 @@
-var request = require("request"); // "Request" library
-var dotenv = require("dotenv");
+const request = require("request"); // "Request" library
+const dotenv = require("dotenv");
 dotenv.config();
-var client_id = process.env.CLIENT_ID; // Your client id
-var client_secret = process.env.CLIENT_SECRET; // Your secret
+const client_id = process.env.CLIENT_ID; // Your client id
+const client_secret = process.env.CLIENT_SECRET; // Your secret
 
 module.exports = (req, res) => {
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
+  const refresh_token = req.query.refresh_token;
+  const authOptions = {
     url: "https://accounts.spotify.com/api/token",
     headers: {
       Authorization:
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
 
   request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
+      const access_token = body.access_token;
       res.send({
         access_token: access_token,
       });
