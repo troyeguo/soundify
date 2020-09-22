@@ -26,7 +26,7 @@ var stateKey = "spotify_auth_state";
 
 module.exports = (req, res) => {
   var state = generateRandomString(16);
-  res.cookie(stateKey, state);
+  res.setHeader("Set-Cookie", [`${state}=${stateKey}; HttpOnly`]);
 
   // your application requests authorization
   var scope =
