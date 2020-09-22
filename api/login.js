@@ -1,4 +1,6 @@
 var querystring = require("querystring");
+var dotenv = require("dotenv");
+dotenv.config();
 
 var generateRandomString = function (length) {
   var text = "";

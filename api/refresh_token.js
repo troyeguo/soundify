@@ -1,4 +1,6 @@
 var request = require("request"); // "Request" library
+var dotenv = require("dotenv");
+dotenv.config();
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
 
