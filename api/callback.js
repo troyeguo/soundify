@@ -8,10 +8,12 @@ const modes = {
   prod: {
     baseURL: process.env.PROD_BASE_URL,
     redirect_uri: process.env.PROD_REDIRECT_URI,
+    home_uri: process.env.PROD_HOME_URL,
   },
   dev: {
     baseURL: process.env.DEV_BASE_URL,
     redirect_uri: process.env.DEV_REDIRECT_URI,
+    home_uri: process.env.DEV_HOME_URL,
   },
 };
 const client_id = process.env.CLIENT_ID; // Your client id
@@ -53,7 +55,7 @@ module.exports = (req, res) => {
 
       // we can also pass the token to the browser to make requests from there
       res.redirect(
-        modes[mode].baseURL +
+        modes[mode].home_uri +
           "/#" +
           querystring.stringify({
             access_token: access_token,
@@ -62,7 +64,7 @@ module.exports = (req, res) => {
       );
     } else {
       res.redirect(
-        modes[mode].baseURL +
+        modes[mode].home_uri +
           "/#" +
           querystring.stringify({
             error: "invalid_token",
