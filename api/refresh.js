@@ -1,4 +1,6 @@
 const dotenv = require("dotenv");
+const request = require("request"); // "Request" library
+
 dotenv.config();
 
 const client_id = process.env.CLIENT_ID; // Your client id
@@ -7,7 +9,7 @@ const client_secret = process.env.CLIENT_SECRET; // Your secret
 module.exports = (req, res) => {
   req.on("data", function (data) {
     const token = JSON.parse(data).refresh_token;
-    // console.log(token, "server refresh");
+    console.log(token, "server refresh");
     const authOptions = {
       url: "https://accounts.spotify.com/api/token",
       form: {
