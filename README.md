@@ -7,9 +7,11 @@
 
 ### Tech Stacks
 
-**Next.js** for Server Side Render
-**OAuth** for Authorization
-**react-spotify-api** for Interacting with Spotify。
+###### **Next.js** for Server Side Render
+
+###### **OAuth** for Authorization
+
+###### **react-spotify-api** for Interacting with Spotify。
 
 ### Demo
 
