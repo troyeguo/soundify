@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "atob": "^2.1.2",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
